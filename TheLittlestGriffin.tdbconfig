@@ -1,0 +1,25 @@
+# THIS FILE IS MACHINE GENERATED - DO NOT EDIT
+# TADS Workbench configuration settings
+
+build:ext resfile cnt:I:0
+build:defaults set:I:1
+build:c ops:I:0
+build:zipfile:S:0:TheLittlestGriffin.zip
+build:installer options:S:0:name=TheLittlestGriffin
+build:installer options:S:1:savext=TheLittlestGriffin
+auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
+auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
+auto-script:next-id:I:1
+main win max::I:0
+build:webpage dir:S:0:web
+build:srczipfile:S:0:TheLittlestGriffinSource.zip
+main win pos::R:16,16,1424,844
+build:ignore case:I:0
+build:exe:S:0:TheLittlestGriffin.exe
+build:use charmap:I:0
+build:debug_image_file:S:0:debug\TheLittlestGriffin.t3
+build:rlsgam:S:0:TheLittlestGriffin.t3
+auto-script:default quit sequences set:I:1
+build:installer prog:S:0:TheLittlestGriffin_Setup.exe
+auto-script:dir:S:0:Scripts
+
