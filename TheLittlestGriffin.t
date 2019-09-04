@@ -77,7 +77,7 @@ versionInfo: GameID
     showCredit()
     {
         /* show our credits */
-        "Put credits for the game here. ";
+        "a tale by Jeff Creswell, a tail by Griffin Dog";
 
         /* 
          *   The game credits are displayed first, but the library will
@@ -90,15 +90,12 @@ versionInfo: GameID
     }
     showAbout()
     {
-        "Put information for players here.  Many authors like to mention
-        any unusual commands here, along with background information on
-        the game (for example, the author might mention that the game
-        was created as an entry for a particular competition). ";
+        "This game was created to evalutate TADS 3.";
     }
 ;
 
 /* 
- *   Entryway location.
+ *   Rookery location, home of griffins and initially dismissive of Griffin
  *   
  *   We use the class "Room" to define the location.  Room is a class,
  *   defined in the library, that can be used for most of the locations in
@@ -113,107 +110,40 @@ versionInfo: GameID
  *   room, and any time the player enters the room when playing in VERBOSE
  *   mode.  
  */
-entryway: Room 'Entryway'
-    "This large, formal entryway is slightly intimidating:
-    the walls are lined with somber portraits of gray-haired
-    men from decades past; a medieval suit of armor<<describeAxe>>
-    towers over a single straight-backed wooden chair.  The
-    front door leads back outside to the south.  A hallway leads
-    north. "
+rookery: Room 'Rookery'
+    "This room is stiflingly hot -- sunlight streams in from massive arched windows high above and is absorbed by the hay and feathery debris surrounding five enormous nests spread around the room in equal intervals.  The smell is even more overwhelming than the heat, especially to the keen sniffer of a proud hound like yourself.  Five mighty griffins, creatures with the hindquarters of a lion and the foreparts of an eagle, stand over you, casting smothering shadows.  Their lead scout, Scout, studies you appraisingly<<scoutGriffin.describeHarness>>.  The rest look bored."
+;
+
+/*
+ *   Define the scout Griffin, Scout.  
+ */
++ scoutGriffin: Immovable 'scout' 'griffin'
+    "The scout griffin Scout <<getAffinityDescription>><<describeHarness>>."
+
+    getIdleMannerismDescription
+    {
+        if(affinity >= 5 && snifferDemoed)
+        {
+            "looks fondly at you, especially your ever-wiggling nose, with sparkles in his sharp eyes";
+        } 
+        else 
+        {
+            "stares proudly down his beak at you"
+        }
+    }
 
     /*
      *   In the description text above, we embedded the expression
-     *   "describeAxe".  Whenever the description text is displayed, it
+     *   "describeHarness".  Whenever the description text is displayed, it
      *   will call evaluate that expression, which will in turn call this
      *   method, where we'll generate some additional text to describe the
      *   axe if it's still part of the suit of armor. 
      */
-    describeAxe
+    describeHarness
     {
-        if (axe.isIn(suitOfArmor))
-            ", posed with a battle axe at the ready,";
+        if (dogHarness.isIn(scoutGriffin))
+            ", dog-style quadraped harness rigged up and ready to go 'round his middle',";
     }
-
-    /* 
-     *   To the north is the hallway.  Set the "north" property to the
-     *   destination room object.  Other direction properties that we
-     *   could set: east, west, north, up, down, plus the diagonals:
-     *   northeast, northwest, southeast, southwest.  We can also set "in"
-     *   and "out", and the shipboard directions port, starboard, fore,
-     *   and aft.  
-     */
-    north = hallway
-
-    /*
-     *   To the south is the front door.  A travel direction link can
-     *   point directly to another room, but it can also point to
-     *   something like a door.  
-     */
-    south = frontDoor
-
-    /*
-     *   The "out" direction is the same as south, since going south leads
-     *   outside 
-     */
-    out = frontDoor
-;
-
-/*
- *   Define the front door.  The "+" sign in front of the definition means
- *   that the object is located within the most recently defined room,
- *   which in this case is 'entryway' as defined above.
- *   
- *   We start this object definition with two strings, both in single
- *   quotes, and a third in double quotes.  The first is the vocabulary
- *   list for the object, which tells us how the player can refer to this
- *   object.  The second string is the name, which is how the game refers
- *   to the object in generated messages.  The third is the full
- *   description of the object, which is displayed when the player
- *   examines this object.
- *   
- *   The vocabulary list consists of any number of words separated by
- *   spaces.  Every word is an adjective except the last, which is a noun.
- *   You can specify more than one noun by listing several nouns separated
- *   by slash characters ("/").  The player can use any of the words
- *   defined here to refer to the object - the player doesn't have to use
- *   all of the words, or use them in the same order that we define them
- *   here, except that adjectives and nouns must be in the grammatically
- *   correct order (in English, this means that adjectives must precede
- *   nouns).  
- */
-+ frontDoor: Door 'front door' 'front door'
-    "It's a heavy wooden door, currently closed. "
-
-    /* the door is initially closed */
-    initiallyOpen = nil
-
-    /*
-     *   Doors can usually be opened, but we don't want to allow this one
-     *   to be opened.  The library by default allows a door to be opened
-     *   and closed at will.  To change this, we must override the "direct
-     *   object" handler for the Open action on this object.  Since we
-     *   don't want anything to happen when the player tries to open the
-     *   door, we can simply override the action handler and display a
-     *   message indicating why we can't open the door.  
-     */
-    dobjFor(Open)
-    {
-        action() { "You'd rather stay in the house for now. "; }
-    }
-;
-
-/*
- *   Define the chair.  We use the Chair class for this.  Note that the
- *   default Chair class defines a moveable object; we don't want our chair
- *   going anywhere, so make it use the Immovable class as well.
- *   
- *   We don't need to refer to the chair anywhere, so we don't bother
- *   giving it a name.  This saves us a little typing and saves us the
- *   trouble of thinking of a name for the object.  
- */
-+ Chair, Immovable 'straight-backed wooden chair' 'wooden chair'
-    "It looks like one of those formal chairs that looks elegant
-    but is incredibly uncomfortable to sit on. "
 ;
 
 /*
