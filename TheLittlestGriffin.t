@@ -1,27 +1,15 @@
 #charset "us-ascii"
 
 /*
- *   Copyright (c) 1999, 2002 by Michael J. Roberts.  Permission is
- *   granted to anyone to copy and use this file for any purpose.  
+ *   Copyright (c) 1999, 2002 by Michael J. Roberts (original sample game).  
+ *   Copyleft 2019 by Jeff Creswell (littlest griffin mods)
+ *   Permission is granted to anyone to copy and use this file for any purpose,
+ *   provided the pieces not present in Michael J. Roberts' original are attributed.  
  *   
  *   This is a starter TADS 3 source file.  This is a complete TADS game
  *   that you can compile and run.
  *   
- *   To compile this game in TADS Workbench, open the "Build" menu and
- *   select "Compile for Debugging."  To run the game, after compiling it,
- *   open the "Debug" menu and select "Go."
  *   
- *   Please note that this file contains considerably more than the
- *   minimal set of definitions necessary to create a working game; this
- *   file has numerous examples meant to help you start making progress on
- *   your game more quickly, by giving you a few concrete examples that
- *   you can copy and modify.  As you flesh out your game, you should
- *   modify the objects we define here, or simply remove them when you no
- *   longer need them in your game.
- *   
- *   If you want a truly minimal set of definitions, create another new
- *   game in TADS Workbench, and choose the "advanced" version when asked
- *   for the type of starter game to create.  
  */
 
 /* 
@@ -58,26 +46,10 @@ versionInfo: GameID
     desc = 'A one room micro adventure starring Mr. Griffin the dog and actual griffins.'
     htmlDesc = 'A one room micro adventure starring Mr. Griffin the dog and actual griffins.'
 
-    /* 
-     *   other bibliographic tags you might want to set include:
-     *
-     *.    headline = 'An Interactive Sample'
-     *.    seriesName = 'The Sample Trilogy'
-     *.    seriesNumber = '1'
-     *.    genreName = 'Sample Games'
-     *.    forgivenessLevel = 'Polite'
-     *.    gameUrl = 'http://mysite.com/mygame.htm'
-     *.    firstPublished = '2006'
-     *.    languageCode = 'en-US'
-     *.    licenseType = 'Freeware'
-     *.    copyingRules = 'Nominal cost only; compilations allowed'
-     *.    presentationProfile = 'Default'
-     */
-
     showCredit()
     {
         /* show our credits */
-        "a tale by Jeff Creswell, a tail by Griffin Dog";
+        "tale by Jeff Creswell, tail by Griffin Dog";
 
         /* 
          *   The game credits are displayed first, but the library will
@@ -90,7 +62,7 @@ versionInfo: GameID
     }
     showAbout()
     {
-        "This game was created to evalutate TADS 3.";
+        "This game was created to evalutate TADS 3, and to immortalize Mr. Griffin, Friendliest of Hounds.";
     }
 ;
 
@@ -147,16 +119,13 @@ rookery: Room 'Rookery'
 ;
 
 /*
- *   Define the suit of armor.  It can't be moved because it's very heavy,
- *   so make it a Heavy object.  Note that we do need to refer to this
- *   object (in the 'entryway' object), so we need to give it an object
- *   name.
+ *   Define the warrior griffin.  
  *   
- *   Note that we define both "suit" and "armor" as nouns in our vocabulary
- *   list, because we want to be able to refer to it as "suit of armor"; in
+ *   Note that we define both "bird" and "griffin" as nouns in our vocabulary
+ *   list, because we want to be able to refer to it as "burly bird" and "burly griffin" for no reason. Incidentally,
  *   the phrasing "x of y", both x and y are noun phrases.  
  */
-+ suitOfArmor: Heavy 'medieval plate-mail suit/armor' 'suit of armor'
++ warriorGriffin: Immovable 'burly bird/griffin' 'warrior griffin'
     "It's a suit of plate-mail armor that looks suitable for
     a very tall knight. <<describeAxe>> "
 
