@@ -1,5 +1,14 @@
 #charset "us-ascii"
 
+/**
+Brainstorming:
+-very simple scenario:
+    --Griffin keeps noticing the smell of a baby griffin from outside the rookery and beneath some scrub brush. 
+    --the griffins talk about a child going missing, one of the reasons they're impatient with Griffin's request to learn to fly.
+    --puzzle is that player needs to tell them he can smell and find a baby griffin nearby apart from all the rest, which makes them grateful and interests
+      Scout in Griffin's sniffer.
+*/
+
 /*
  *   Copyright (c) 1999, 2002 by Michael J. Roberts (original sample game).  
  *   Copyleft 2019 by Jeff Creswell (littlest griffin mods)
