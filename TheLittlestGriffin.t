@@ -5,15 +5,15 @@ Brainstorming:
 -very simple scenario:
     --Griffin keeps noticing the smell of a baby griffin from outside the rookery and beneath some scrub brush. 
     --the griffins talk about a child going missing, one of the reasons they're impatient with Griffin's request to learn to fly.
-    --puzzle is that player needs to tell them he can smell and find a baby griffin nearby apart from all the rest, which makes them grateful and interests
+    --puzzle 1 is that player needs to tell them he can smell and find a baby griffin nearby apart from all the rest, which makes them grateful and interests
       Scout in Griffin's sniffer.
+    --puzzle 2 is that Griffin must use the Ropes on the Inexplicable Quadraped Stand to create a griffin-dog harness.
 */
 
 /*
- *   Copyright (c) 1999, 2002 by Michael J. Roberts (original sample game).  
- *   Copyleft 2019 by Jeff Creswell (littlest griffin mods)
+ *   Copyleft 2019 by Jeff Creswell
  *   Permission is granted to anyone to copy and use this file for any purpose,
- *   provided the pieces not present in Michael J. Roberts' original are attributed.  
+ *   with attribution.  
  *   
  *   This is a starter TADS 3 source file.  This is a complete TADS game
  *   that you can compile and run.
@@ -71,7 +71,7 @@ versionInfo: GameID
     }
     showAbout()
     {
-        "This game was created to evalutate TADS 3, and to immortalize Mr. Griffin, Friendliest of Hounds.";
+        "This game was created to evalutate TADS 3. Also, to immortalize Mr. Griffin, Friendliest of Hounds.";
     }
 ;
 
@@ -98,7 +98,7 @@ rookery: Room 'Rookery'
 /*
  *   Define the scout Griffin, Scout.  
  */
-+ scoutGriffin: Immovable 'scout' 'griffin'
++ scoutGriffin: Actor 'scout' 'griffin'
     "The scout griffin Scout <<getAffinityDescription>><<describeHarness>>."
 
     getIdleMannerismDescription
@@ -134,100 +134,28 @@ rookery: Room 'Rookery'
  *   list, because we want to be able to refer to it as "burly bird" and "burly griffin" for no reason. Incidentally,
  *   the phrasing "x of y", both x and y are noun phrases.  
  */
-+ warriorGriffin: Immovable 'burly bird/griffin' 'warrior griffin'
-    "It's a suit of plate-mail armor that looks suitable for
-    a very tall knight. <<describeAxe>> "
-
-    /* 
-     *   as we did in entryway's description, we've embedded a call to our
-     *   describeAxe method, so that we can add a description of the axe
-     *   if appropriate 
-     */
-    describeAxe
-    {
-        if (axe.isIn(self))
-            "The armor is posed with a huge battle-axe held
-            at the ready. ";
-    }
++ warriorGriffin: Actor 'burly bird/lion/griffin' 'warrior griffin' 'dashwick'
+    "This griffin's face is marred by ragged talon-borne scars, leaving large patches without feather coverage.  His name is Dashwick and he doesn't seem very friendly.  Even so, you long to lick his beak -- it looks salty!"
 ;
 
++ wizardGriffin: Actor 'wise bird/lion/griffin' 'wizard griffin' 'fizzelump'
+    "The wise wizard griffin Fizzelump eyes you curiously.  Her pointy hat with stars on is a bit too large and continuously slips down over her eyes, accouting for her perpetual side-to-side head tilting.  Also she's part bird. "
+
++ matronGriffin: Actor 'kindly bird/lion/griffin' 'matron griffin' 'warkmana'
+    "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
+
++ librarianGriffin: Actor 'nerd bird/lion/griffin' 'librarian griffin' 'mallory'
+    "With practiced grace and the utmost care, this giant griffin turns the pages of a musty tome with a jet-black talon.  Her name is Mallory, and her attention is entirely absorbed by her book.  If they could make a book with a smelly interface, you'd be an avid reader too. "
+
 /*
- *   The battle axe, initially posed with the suit of armor.  We make this
+ *   The sturdy rope, one component of the griffin-dog harness.  We make this
  *   a Thing, because we want it to be something the player can pick up
  *   and manipulate.
  *   
- *   This definition starts with two "+" signs, to indicate that it is
- *   initially inside the last object defined with one "+" sign, which is
- *   the suit of armor.
- *   
- *   Note that we define a bunch of vocabulary words that aren't really
- *   synonyms for "axe," but are for things we describe as parts of the
- *   axe (the blade, the dried blood on the blade).  Those parts aren't
- *   worth defining as separate objects, but we can at least recognize
- *   them as vocabulary words that simply refer to the axe itself.  
+ *    
  */
-++ axe: Thing 'large steel battle dried ax/axe/blade/edge/blood' 'battle axe'
-    "It's a large steel battle axe.  A little bit of dried blood on
-    the edge of the blade makes the authenticity of the equipment
-    quite credible. "
-
-    /* 
-     *   When we're located in the suit of armor, the suit of armor and
-     *   the room containing the suit of armor describe us specially.
-     *   This means that we do not want to display our name among the
-     *   miscellaneous items listed in the room's description.  To prevent
-     *   being listed in the ordinary description, indicate that we have a
-     *   "special" description any time we're located in the suit of
-     *   armor, and then make this special desription show nothing - it's
-     *   not necessary to show anything because the room and suit of armor
-     *   both already show something special for us.  
-     */
-    useSpecialDesc = (isIn(suitOfArmor))
-    specialDesc = ""
-;
-    
-/*
- *   Define the portraits.  We don't want to define several individual
- *   portraits, because they're not important enough, so define a single
- *   object that refers to the portraits collectively.
- *   
- *   Because the library normally allows the player to abbreviate any word
- *   to its first six or more letters, note that we don't have to provide
- *   separate vocabulary words for "portrait" and "portraits", or for
- *   "picture" and "pictures" - "portrait" is an acceptable abbreviation
- *   for "portraits".  
- */
-+ Fixture 'somber gray-haired portraits/pictures/men/man' 'portraits'
-    "The men in the portraits look like bankers or businessmen, all
-    serious faces and old-fashioned suits. "
-
-    /* 
-     *   this object has a plural name, so we must set the isPlural flag
-     *   to let the library know how to use its name in messages 
-     */
-    isPlural = true
-;
-
-/*
- *   The hallway, north of the entryway.  
- */
-hallway: Room 'Hallway'
-    "This broad, dimly-lit corridor runs north and south. "
-
-    south = entryway
-    north = kitchen
-;
-
-/*
- *   The kitchen.
- */
-kitchen: Room 'Kitchen'
-    "This is a surprisingly cramped kitchen, equipped with
-    antique accoutrements: the stove is a huge black iron contraption,
-    and in place of a refrigerator is an actual icebox.  A hallway
-    lies to the south. "
-
-    south = hallway
++ sturdyRope: Thing 'old sturdy hempen rope/twine/bindings' 'sturdy rope' 'rope'
+    "A coil of sturdy rope, well-worn and proven from heavy use."
 ;
 
 /*
@@ -244,66 +172,40 @@ kitchen: Room 'Kitchen'
  *   contents when we're open.  
  */
 + Fixture, OpenableContainer
-    'huge black iron stove stove/oven/contraption/door' 'stove'
-    "It's a huge black iron cube, with a front door that swings
-    open sideways. "
+    'splintery crate/box/chest' 'crate'
+    "It's a huge black box, with a front door that swings
+    open sideways.  The couriers have thoughtfully provided a groove suitable for paw or muzzle nudging-open. "
 
     /* it's initially closed */
     initiallyOpen = nil
 ;
 
 /*
- *   Put a loaf of bread in the stove.  It's edible, so use the library
- *   class Food. 
+ *   Put the inexplicable quadraped stand in the crate. 
  */
-++ Food 'fresh golden-brown brown loaf/bread/crust' 'loaf of bread'
-    "It's a fresh loaf with a golden-brown crust. "
+++ quadrapedStand: Thing 'inexplicable quadraped stand/platform' 'quadraped stand'
+    "No one remembers who ordered this strange static mesh of hard leather apparently intended to secure a four-footed creature to a surface.  Handy, though! "
 
     /* 
-     *   we want to provide a special message when we eat the bread, so
-     *   override the direct object action handler for the Eat action;
+     *   we want to provide a special message when we use the stand on the rope, so
+     *   override the direct object action handler for the Use action;
      *   inherit the default handling, but also display our special
      *   message, which will automatically override the default message
-     *   that the base class produces 
+     *   that the base class produces.  Then add the GriffinDogHarness to player inventory. 
      */
-    dobjFor(Eat)
+    dobjFor(Use)
     {
         action()
         {
             /* inherit the default handling */
             inherited();
 
+            // todo: how do we check what object the current object was used on?
+
             /* show our special description */
-            "You tear off a piece and eat it; it's delicious.  You tear off
-            a little more, then a little more, and before long the whole loaf
-            is gone. ";
-        }
-    }
-;
+            "With a little ingenuity and many fervent wishes for thumbs, you manage to connect the rope to the stand.  This creates a sort of makeshift harness, in which you could be secured snuggle-y. ";
 
-/*
- *   The icebox is similar to the stove.
- */
-+ Fixture, OpenableContainer 'ice box/icebox' 'icebox'
-    "Before there were refrigerators, people had these: it's just
-    a big insulated box, into which one would put perishables
-    along with enough ice to keep the perishables chilled for a few
-    days. "
-
-    /* 
-     *   when looking in the icebox, explicitly point out that it contains
-     *   no ice; do this by overriding the LookIn action handler,
-     *   inheriting the default handling and adding our own message 
-     */
-    dobjFor(LookIn)
-    {
-        action()
-        {
-            /* show the default description */
-            inherited();
-
-            /* add a note that there's no ice, after a paragraph break */
-            "<.p>It's been a long time since any ice was in there. ";
+            // todo: how do we dynamically create and/or add a static object to the player inventory?
         }
     }
 ;
@@ -321,9 +223,9 @@ kitchen: Room 'Kitchen'
  *   the Actor the player character; any Actor can serve as the player
  *   character, and we'll establish this one as the PC in main(), below.  
  */
-me: Actor
+griffinDog: Actor
     /* the initial location is the entryway */
-    location = entryway
+    location = rookery
 ;
 
 /*
@@ -334,8 +236,7 @@ me: Actor
  *   required methods and properties.  
  */
 gameMain: GameMainDef
-    /* the initial player character is 'me' */
-    initialPlayerChar = me
+    initialPlayerChar = griffinDog
 
     /* 
      *   Show our introductory message.  This is displayed just before the
@@ -345,7 +246,7 @@ gameMain: GameMainDef
      */
     showIntro()
     {
-        "Welcome to the TADS 3 Starter Game!\b";
+        "Welcome to tale and tail of The Littlest Griffin!  You play a dog who longs to fly, and who has approached the mighty half-lion half-eagle griffins seeking flying lessons.\b";
     }
 
     /* 
@@ -356,6 +257,6 @@ gameMain: GameMainDef
      */
     showGoodbye()
     {
-        "<.p>Thanks for playing!\b";
+        "<.p>Thanks for playing! *too happy to wag along only one axis -- tail wags in circles*\b";
     }
 ;
