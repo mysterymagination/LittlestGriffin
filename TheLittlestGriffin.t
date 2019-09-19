@@ -101,6 +101,9 @@ aery: Room 'Aery'
 + scoutGriffin: Actor 'scout/scout griffin/scout' 'Scout'
     "The scout griffin Scout <<getIdleMannerismDescription>><<describeHarness>>. "
 
+    isProperName = true
+    isHim = true
+
     getIdleMannerismDescription
     {
         if(griffinDog.snifferDemoed)
@@ -137,19 +140,37 @@ aery: Room 'Aery'
 + warriorGriffin: Actor 'burly bird/lion/griffin/warrior/dashwick' 'Dashwick'
     "This griffin's face is marred by ragged talon-borne scars, leaving large
     patches without feather coverage.  His name is Dashwick and he doesn't seem very friendly.  Even so, you long to lick his beak -- it looks salty! "
+    isProperName = true
+    isHim = true
 ;
 
 + wizardGriffin: Actor 'wise bird/lion/griffin/wizard/fizzelump' 'Fizzelump'
     "The wise wizard griffin Fizzelump eyes you curiously.  Her pointy hat with
     stars on is a bit too large and continuously slips down over her eyes, accounting for her perpetual side-to-side head tilting.  Also she's part bird. "
-;    
+    isProperName = true
+    isHer = true
+
+    
+;   
+
+++magicTopic: Topic 'magic/sorcery/mysticism/math';
+
+++AskTellTopic @magicTopic
+    "<q>Woof?</q> *Your question is understood to be on the nature of magic and its interconnection with the laws of nature.*
+    <.p>She ponders for a moment.  <q>Well,</q> she says
+    slowly, <q>I'm not sure I understand the question -- magic is a part of nature, after all, just like gravity and electricity.  The only difference is that magic is a little more expansive and flexible: all forms of matter and energy are networked by strings of subatomic particles called Quirks and by manipulating these we can affect more specific natural law and also 'invent' new natural law!  It might not stick around longer than we're attending to it, but it's no less real for that.  Some such grand constructs can even be made permanent!</q> Her eyes go distant for a moment and she shivers.  <q>It's well for all things that making new permanent natural law is not easy.</q>"
+  ;
 
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
     "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
+    isProperName = true
+    isHer = true
 ;
 
 + librarianGriffin: Actor 'nerd bird/lion/griffin/librarian/mallory' 'Mallory'
     "With practiced grace and the utmost care, this giant griffin turns the pages of a musty tome with a jet-black talon.  Her name is Mallory, and her attention is entirely absorbed by her book.  Hrumph -- If they could make a book with a smelly interface, you'd be an avid reader too. "
+    isProperName = true
+    isHer = true
 ;
 
 /*
