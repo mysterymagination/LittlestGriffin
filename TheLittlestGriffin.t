@@ -75,6 +75,30 @@ versionInfo: GameID
     }
 ;
 
+/* Custom verbs */
+DefineTAction(Chew);
+
+   VerbRule(Chew)
+     ('chew' | 'chomp') singleDobj
+     : ChewAction
+     verbPhrase = 'chew/chewing (what)'
+   ;
+
+   modify Thing
+     dobjFor(Chew)
+     {
+       verify() 
+       {
+         illogical('You probably shouldn\'t chew on 
+                   {that dobj/him/her}. ');
+       }
+     }
+   ;
+
+/* Topics of discussion */
+flightTopic: Topic 'fly/flight/flying/wings/bird';
+magicTopic: Topic 'magic/sorcery/mysticism/math';
+
 /* 
  *   Aery location, home of griffins and initially dismissive of Griffin
  *   
@@ -153,13 +177,15 @@ aery: Room 'Aery'
     
 ;   
 
-++magicTopic: Topic 'magic/sorcery/mysticism/math';
-
 ++AskTellTopic @magicTopic
     "<q>Woof?</q> *Your question is understood to be on the nature of magic and its interconnection with the laws of nature.*
     <.p>She ponders for a moment.  <q>Well,</q> she says
     slowly, <q>I'm not sure I understand the question -- magic is a part of nature, after all, just like gravity and electricity.  The only difference is that magic is a little more expansive and flexible: all forms of matter and energy are networked by strings of subatomic particles called Quirks and by manipulating these we can affect more specific natural law and also 'invent' new natural law!  It might not stick around longer than we're attending to it, but it's no less real for that.  Some such grand constructs can even be made permanent!</q> Her eyes go distant for a moment and she shivers.  <q>It's well for all things that making new permanent natural law is not easy.</q>"
   ;
+
+++AskTellTopic @flightTopic
+    "<q>Hruff!  Borf?</q>*You bounce up and down, wiggle your ears, and fix your laser-like gaze on her wings, clearly conveying your query regarding flight*<.p>Fizzelump fidgets and scratches a shapely haunch evasively.  <q>Yes, flying and so forth.  You're a lovely fellow and I'd be delighted to help you realize a dream, but... there are certain hardware requirements.  Namely, wings or flaps or something.  I'm afraid your people just aren't built for flight.</q>  She hangs her beak, looking down at her talons."
+;
 
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
     "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
@@ -184,26 +210,34 @@ aery: Room 'Aery'
     "A coil of sturdy rope, well-worn and proven from heavy use."
 ;
 
++ spellBook: Thing 'spells/book/spell book/grimoire' 'spell book'
+    "Some sort of book, with fanciful trim and similar frills.  Smells of Fizzelump, which is to say the scent of enthusiasm pleasantly underscored by cozy mustiness.  Filled with squiggles."
+;
+
++ eldritchStick: Thing 'stick/eldritch stick/staff' 'mesmerizing stick'
+    "This stick is just fascinating... normally such mundane chewy implements are beneath your notice, but this one keeps drawing your snout with all the magnetism of a squirrel!"
+    dobjFor(Chew)
+     {
+        verify(){}
+        action() 
+        {
+         "Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and your favorite is the purple one that smells of snoozing and fondness -- it's the smell of your human!  You notice Fizzelump wincing at each loud *CRUNCH* of the stick, but she says nothing.";
+        }
+     }
+;
+
 /*
  *   The stove is a Fixture, since we don't want the player to be able to
  *   move it.  It's also an OpenableContainer, because we want the player
  *   to be able to open and close it and put things in it.
  *   
- *   Note that we define 'stove' as both an adjective and as a noun,
- *   because we want the player to be able to refer to it not only as a
- *   "stove" but also as a "stove door".
- *   
  *   Because we're an OpenableContainer, the library will automatically add
- *   to our description text an open/closed indication and a listing of any
+ *   to our description text an open or closed indication and a listing of any
  *   contents when we're open.  
  */
-+ Fixture, OpenableContainer
-    'splintery crate/box/chest' 'crate'
++ box: OpenableContainer 'splintery crate/box/chest' 'crate'
     "It's a huge black box, with a front door that swings
     open sideways.  The couriers have thoughtfully provided a groove suitable for paw or muzzle nudging-open. "
-
-    /* it's initially closed */
-    initiallyOpen = nil
 ;
 
 /*
@@ -293,7 +327,7 @@ gameMain: GameMainDef
      */
     showIntro()
     {
-        "Welcome to the tale and tail of The Littlest Griffin!  You play a dog who longs to fly, and who has approached the mighty half-lion half-eagle griffins seeking flying lessons.\b";
+        "Welcome to the tale and tail of The Littlest Griffin!  You play a dog who longs to fly, and who has approached the mighty half-lion half-eagle griffins seeking flying lessons.  Start by asking your new and instantly beloved friends about flying!\b";
     }
 
     /* 
