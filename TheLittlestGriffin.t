@@ -221,7 +221,13 @@ aery: Room 'Aery'
         verify(){}
         action() 
         {
-         "Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and your favorite is the purple one that smells of snoozing and fondness -- it's the smell of your human!  You notice Fizzelump wincing at each loud *CRUNCH* of the stick, but she says nothing.";
+            "Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and each is just the best thing.  You notice Fizzelump wincing at each loud *CROMCH* of the stick, but she says nothing.";
+            switch(rand(5)) {
+                case 0: "Your favorite spark, the purple one, dances merrily forth from the stick.  It smells of snoozing and fondness -- it's the smell of your human!";
+                case 1: "Golden spark spork out of the stick, startling you slightly.  They smell of gremlins and human magic.  You furrow your furry brow at them admonishingly, then return to your work upon the stick.";
+                case 2: "*SWOOSH* verdant green sparks explode from the stick as it jumps in your jaws, filling your snoot with a subtle and pleasant puff of pine needles freshly fallen upon the undisturbed first snow of winter just as dawn illuminates them.  Calmly, you whack a heavy paw down over it such that your important chewing progress is not interrupted.";
+                case 3: "In a sapphire flash, two butterflies composed entirely of the soothing translucent aquamarine of a warm tropical lagoon flap into being from the knots near the top of the stick where your jaws are currently clamped.  They smell of discovery and life and the infinitude of hope promised to the living thereby.  You pause a moment to watch them frolic, perfectly content, and then return to work.";
+                case 4: "With a mighty *FWOOSH*, a massive gout of scarlet flames tinged with threads of emerald spouts from the top of the stick.  Luckily these do not burn, and in fact feel rather like a warm breeze ruffling your whiskers.  Further, these glorious blooms of comforting light smell of the SNUGGLIEST stuffed toy.  You put your chewing on hold for a moment to lick all trace of the lovey flames from the stick."
         }
      }
 ;
