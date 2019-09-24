@@ -306,7 +306,7 @@ griffinDog: Actor
     /*
     * Mr. Griffin needs to show off his sniffing skillz to impress the griffins
     */
-    snifferDemoed = false
+    snifferDemoed = nil;
 ; 
 
 /*
