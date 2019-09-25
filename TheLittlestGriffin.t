@@ -221,15 +221,69 @@ aery: Room 'Aery'
         verify(){}
         action() 
         {
-            "Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and each is just the best thing.  You notice Fizzelump wincing at each loud *CROMCH* of the stick, but she says nothing.";
-            switch(rand(5)) {
-                case 0: "Your favorite spark, the purple one, dances merrily forth from the stick.  It smells of snoozing and fondness -- it's the smell of your human!";
-                case 1: "Golden spark spork out of the stick, startling you slightly.  They smell of gremlins and human magic.  You furrow your furry brow at them admonishingly, then return to your work upon the stick.";
-                case 2: "*SWOOSH* verdant green sparks explode from the stick as it jumps in your jaws, filling your snoot with a subtle and pleasant puff of pine needles freshly fallen upon the undisturbed first snow of winter just as dawn illuminates them.  Calmly, you whack a heavy paw down over it such that your important chewing progress is not interrupted.";
-                case 3: "In a sapphire flash, two butterflies composed entirely of the soothing translucent aquamarine of a warm tropical lagoon flap into being from the knots near the top of the stick where your jaws are currently clamped.  They smell of discovery and life and the infinitude of hope promised to the living thereby.  You pause a moment to watch them frolic, perfectly content, and then return to work.";
-                case 4: "With a mighty *FWOOSH*, a massive gout of scarlet flames tinged with threads of emerald spouts from the top of the stick.  Luckily these do not burn, and in fact feel rather like a warm breeze ruffling your whiskers.  Further, these glorious blooms of comforting light smell of the SNUGGLIEST stuffed toy.  You put your chewing on hold for a moment to lick all trace of the lovey flames from the stick."
+            /* todo: combining string literals with implicit display logic and string variables with explicit display logic seems tricksy.  May want to just build a string var from this and then display explicitly at end*/
+            local stickMessage = 'Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and each is just the best thing.  You notice Fizzelump wincing at each loud *CROMCH* of the stick, but she says nothing. ';
+            switch(rand(7)) {
+                /*prefab cases*/
+                case 0: stickMessage += 'Your favorite spark, the purple one, dances merrily forth from the stick.  It smells of snoozing and fondness -- it\'s the smell of your human!'; break;
+                case 1: stickMessage += 'Golden spark spork out of the stick, startling you slightly.  They smell of gremlins and human magic.  You furrow your furry brow at them admonishingly, then return to your work upon the stick.'; break;
+                case 2: stickMessage += '*SWOOSH* verdant green sparks explode from the stick as it jumps in your jaws, filling your snoot with a subtle and pleasant puff of pine needles freshly fallen upon the undisturbed first snow of winter just as dawn illuminates them.  Calmly, you whack a heavy paw down over it such that your important chewing progress is not interrupted.'; break;
+                case 3: stickMessage += 'In a sapphire flash, two butterflies composed entirely of the soothing translucent aquamarine of a warm tropical lagoon flap into being from the knots near the top of the stick where your jaws are currently clamped.  They smell of discovery and life and the infinitude of hope promised to the living thereby.  You pause a moment to watch them frolic, perfectly content, and then return to work.'; break;
+                case 4: stickMessage += 'With a mighty *FWOOSH*, a massive gout of scarlet flames tinged with threads of emerald spouts from the top of the stick.  Luckily these do not burn, and in fact feel rather like a warm breeze ruffling your whiskers.  Further, these glorious blooms of comforting light smell of the SNUGGLIEST stuffed toy.  You put your chewing on hold for a moment to lick all trace of the lovey flames from the stick.  For four hours.'; break;
+                /*rando generated cases*/
+                case 5: stickMessage += 'Opalescent sparks smelling of all creation jump from each knothole on the stick at once.  As you watch curiously and carefully, they converge and form a ' + generateRandomGoodNoun() + ' before you.  Merrily, you ' + generateRandomVerb() + ' it.'; break;
+                case 6: stickMessage += 'Smelly green and yellow sparks reminiscent of bile ooze from stick, prompting you to pull back quickly.  A fell ' + generateRandomBadNoun() + ' squirms into your reality from someplace foul, and you have little choice but to ' + generateRandomVerb() + ' it.'; break;
+            }
+            mainReport(stickMessage);
         }
      }
+     generateRandomGoodNoun()
+     {
+         local goodThing = 'Tennis Ball';
+         switch(rand(10))
+         {
+             case 0: goodThing = 'Snuggly Stuffed Thing'; break;
+             case 1: goodThing = 'Unguarded Bone'; break;
+             case 2: goodThing = 'Antler'; break;
+             case 3: goodThing = 'FOOOD'; break;
+             case 4: goodThing = 'Treats'; break;
+             case 5: goodThing = 'Uneaten Bed'; break;
+             case 6: goodThing = 'Sheets Smelling of Human'; break;
+             case 7: goodThing = 'The Human\'s Socks'; break;
+             case 8: goodThing = 'DOG!'; break;
+             case 9: goodThing = 'CAT!'; break;
+         }
+         return goodThing;
+     }
+     generateRandomBadNoun()
+     {
+         switch(rand(7))
+         {
+             case 0: return 'Thermometer'; break;
+             case 1: return 'Gremlin'; break;
+             case 2: return 'SQUIRREL'; break;
+             case 3: return 'BIRD'; break;
+             case 4: return 'Loud Noise'; break;
+             case 5: return 'Forbidden Food'; break;
+             case 6: return 'DOG WITH WRONG SMELL'; break;
+             default: return 'DOG SIGNAL'; break;
+         }
+     }
+     generateRandomVerb()
+     {
+         switch(rand(7))
+         {
+             case 0: return 'Hoover'; break;
+             case 1: return 'Lick Vigorously'; break;
+             case 2: return 'Chase Enthusiastically'; break;
+             case 3: return 'Whack w/ Soft Massive Paw'; break;
+             case 4: return 'Place Jaws Around'; break;
+             case 5: return 'Bark at'; break;
+             case 6: return 'Wag Tail in Circles before'; break;
+             default: return 'Love Unconditionally and Completely upon'; break;
+         }
+     }
+
 ;
 
 /*
@@ -312,7 +366,7 @@ griffinDog: Actor
     /*
     * Mr. Griffin needs to show off his sniffing skillz to impress the griffins
     */
-    snifferDemoed = false
+    snifferDemoed = nil
 ; 
 
 /*
