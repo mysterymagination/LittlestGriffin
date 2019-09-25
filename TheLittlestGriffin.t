@@ -193,10 +193,18 @@ aery: Room 'Aery'
     isHer = true
 ;
 
+++AskTellTopic @flightTopic
+    "<q>Chuff!  Snort?</q>*You sneeze and snort to clear your sniffer, and then assess Warkmana's mood.  She's upset, which doesn't bode well for your questioning.  Still, you whine and paw at her wings, wagering that she might appreciate a distraction.*<.p>Warkmana, looking stressed and distracted, shakes her head dismissively at you. <q>No no, don't be silly.  You're a dog, of course you can't fly!  If you'll excuse me, I've got an errant cublet to find.</q>"
+;
+
 + librarianGriffin: Actor 'nerd bird/lion/griffin/librarian/mallory' 'Mallory'
     "With practiced grace and the utmost care, this giant griffin turns the pages of a musty tome with a jet-black talon.  Her name is Mallory, and her attention is entirely absorbed by her book.  Hrumph -- If they could make a book with a smelly interface, you'd be an avid reader too. "
     isProperName = true
     isHer = true
+;
+
+++AskTellTopic @flightTopic
+    "<q>Hawooooo wooo woo wuf.  Arf?</q>*Seeing that she's distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what's making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly.  <q>How curious.  I've never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I'm right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I've penciled you in.  Return 700 years from this day; I'm free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly."
 ;
 
 /*
@@ -221,7 +229,6 @@ aery: Room 'Aery'
         verify(){}
         action() 
         {
-            /* todo: combining string literals with implicit display logic and string variables with explicit display logic seems tricksy.  May want to just build a string var from this and then display explicitly at end*/
             local stickMessage = 'Delicious!  Sparks fly from stick whenever you bite down, pleasantly warming your gums as you go to town.  Each spark has a different color and smell, and each is just the best thing.  You notice Fizzelump wincing at each loud *CROMCH* of the stick, but she says nothing. ';
             switch(rand(7)) {
                 /*prefab cases*/
