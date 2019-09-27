@@ -234,8 +234,21 @@ aery: Room 'Aery'
     slowly, <q>I'm not sure I understand the question -- magic is a part of nature, after all, just like gravity and electricity.  The only difference is that magic is a little more expansive and flexible: all forms of matter and energy are networked by strings of subatomic particles called Quirks and by manipulating these we can affect more specific natural law and also 'invent' new natural law!  It might not stick around longer than we're attending to it, but it's no less real for that.  Some such grand constructs can even be made permanent!</q> Her eyes go distant for a moment and she shivers.  <q>It's well for all things that making new permanent natural law is not easy.</q>"
   ;
 
-++AskTellTopic @flightTopic
-    "<q>Hruff!  Borf?</q>*You bounce up and down, wiggle your ears, and fix your laser-like gaze on her wings, clearly conveying your query regarding flight*<.p>Fizzelump fidgets and scratches a shapely haunch evasively.  <q>Yes, flying and so forth.  You're a lovely fellow and I'd be delighted to help you realize a dream, but... there are certain hardware requirements.  Namely, wings or flaps or something.  I'm afraid your people just aren't built for flight.</q>  She hangs her beak, looking down at her talons."
+++AskTellTopic, StopEventList @flightTopic
+    ['<q>Hruff!  Borf?</q>*You bounce up and down, wiggle your ears, and fix your laser-like gaze on her wings, clearly conveying your query regarding flight*<.p>Fizzelump fidgets and scratches a shapely haunch evasively.  <q>Yes, flying and so forth.  You\'re a lovely fellow and I\'d be delighted to help you realize a dream, but... there are certain hardware requirements.  Namely, wings or flaps or something.  I\'m afraid your people just aren\'t built for flight.</q>  She hangs her beak, looking down at her talons.'
+
+    '<q>Sorry little dog, but there are some things even magic cannot accomplish.</q>'
+    ]
+;
+
++++AltTopic
+    "Fizzelump blushes at your attention and, mastering herself, carefully leans down to fondly nuzzle your muzzle with her beak.  <q>Thank you thank you for finding our cublet!  Magic is amazing, but it pales in comparison to the majesty that is dog.  You're so brave and talented, I'm sure we can figure something out to help you fly.  Look around and we'll do the same -- maybe the solution is right in front of us!</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+;
+
++++AltTopic 
+    "<q>Ooh hey, that harness-y thingamajig might just work! I, uh, I'm not the best with artifice, however.  My jam is more sparkles and stupendous sounds and explosions!  Maybe Mallory could help?</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
 ;
 
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
@@ -244,8 +257,21 @@ aery: Room 'Aery'
     isHer = true
 ;
 
-++AskTellTopic @flightTopic
-    "<q>Chuff!  Snort?</q>*You sneeze and snort to clear your sniffer, and then assess Warkmana's mood.  She's upset, which doesn't bode well for your questioning.  Still, you whine and paw at her wings, wagering that she might appreciate a distraction.*<.p>Warkmana, looking stressed and distracted, shakes her head dismissively at you. <q>No no, don't be silly.  You're a dog, of course you can't fly!  If you'll excuse me, I've got an errant cublet to find.</q>"
+++AskTellTopic, StopEventList @flightTopic
+    ['<q>Chuff!  Snort?</q>*You sneeze and snort to clear your sniffer, and then assess Warkmana\'s mood.  She\'s upset, which doesn\'t bode well for your questioning.  Still, you whine and paw at her wings, wagering that she might appreciate a distraction.*<.p>Warkmana, looking stressed and distracted, shakes her head dismissively at you. <q>No no, don\'t be silly.  You\'re a dog, of course you can\'t fly!  If you\'ll excuse me, I\'ve got an errant cublet to find.</q>'
+
+    'Warkmana is too busy searching under everything and shooing cublets out of her path to listen.'
+    ]
+;
+
++++AltTopic
+    "Wrapping her wings about you in an avian hug, Warkmana smothers you with affectionate nips and licks for a solid minute.  <q>You found her, you found my little Muffynx!  I don't know what we would have done without your sniffer.  I'll do anything to help you, but I don't know how to make a dog fly.</q>  She looks pained as she pulls away from you.  <q>Try asking our brainy types, Fizzelump and Mallory; they're the creative problem solvers around here.</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+;
+
++++AltTopic 
+    "<q>Say, that contraption looks promising!  I think.  Perhaps Mallory or Fizzelump would know what to do with it?</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
 ;
 
 + librarianGriffin: Actor 'nerd bird/lion/griffin/librarian/mallory' 'Mallory'
@@ -254,8 +280,18 @@ aery: Room 'Aery'
     isHer = true
 ;
 
-++AskTellTopic @flightTopic
-    "<q>Hawooooo wooo woo roo wuf.  Arf?</q>*Seeing that she's distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what's making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly.  <q>How curious.  I've never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I'm right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I've penciled you in.  Return 700 years from this day; I'm free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly."
+++AskTellTopic, StopEventList @flightTopic
+    ['<q>Hawooooo wooo woo roo wuf.  Arf?</q>*Seeing that she\'s distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what\'s making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly, and abruptly twists her head around 180 degrees.  <q>How curious.  I\'ve never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I\'m right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I\'ve penciled you in.  Return 700 years from this day; I\'m free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly.'
+
+    'Mallory\'s attention is consumed by her reading, and she is unavailable to the world.'
+    ]
+;
+
++++AltTopic 
+    "Her interest finally piqued by the smell of leather and hemp in a complex configuration, the smell of prototyping, Mallory looks up from her studies.  <q>Ah, now that's a pretty thing.  Hmm, yes I see -- you're little hooves or paws or some such would fit inside the cuffs here with a loop 'round your middle.  The harness would fasten over a griffin's body here with the rope securing it there and there... It might just work!  I'm interested now, and we must see this experiment through to fruition.  Come!  I will help you hook up one of the others, mm, Scout, for testing.</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+    finishGameMsg('victory placeholder')
+    /* todo: run victory condition*/
 ;
 
 /*
