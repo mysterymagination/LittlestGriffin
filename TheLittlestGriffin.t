@@ -99,7 +99,7 @@ DefineTIAction(UseOn);
 
    VerbRule(UseOn)
      'use' singleDobj 'on' singleIobj
-     : UseAction
+     : UseOnAction
      verbPhrase = 'use (what) (on what)'
    ;
 
@@ -181,12 +181,12 @@ aery: Room 'Aery'
 
 +++AltTopic
     "Crowing his appreciation, Scout dips his beak and bends his front feet in a deep bow.  <q>Thanks to you our family is whole again!  Oh how I wish we could help you achieve your dream of flight...</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != griffinDog) 
 ;
 
 +++AltTopic
     "Looking curiously at the harness you've put together, Scout remarks, <q>What an ingenious device!  I'm not sure how we should hook it up, but it suggests some sort of collaboration between us.  Maybe flight by proxy?</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
 /*
@@ -211,12 +211,12 @@ aery: Room 'Aery'
 
 +++AltTopic
     "Dashwick bows his beak to you respectfully.  <q>You've done us a great service in finding our missing cublet, Mr. Dog.  However, I still cannot help you to fly; you'll need a more inventive mind to figure this out.</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != griffinDog) 
 ;
 
 +++AltTopic 
     "<q>What a fascinating piece of equipment!</q>  Dashwick gushes over your harness.  <q>I'm afraid I don't know quite how it would be used, though.</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
 + wizardGriffin: Actor 'wise bird/lion/griffin/wizard/fizzelump' 'Fizzelump'
@@ -235,7 +235,7 @@ aery: Room 'Aery'
   ;
 
 ++AskTellTopic, StopEventList @flightTopic
-    ['<q>Hruff!  Borf?</q>*You bounce up and down, wiggle your ears, and fix your laser-like gaze on her wings, clearly conveying your query regarding flight*<.p>Fizzelump fidgets and scratches a shapely haunch evasively.  <q>Yes, flying and so forth.  You\'re a lovely fellow and I\'d be delighted to help you realize a dream, but... there are certain hardware requirements.  Namely, wings or flaps or something.  I\'m afraid your people just aren\'t built for flight.</q>  She hangs her beak, looking down at her talons.'
+    ['<q>Hruff!  Borf?</q>*You bounce up and down, wiggle your ears, and fix your laser-like gaze on her wings, clearly conveying your query regarding flight*<.p>Fizzelump fidgets and scratches a shapely haunch evasively.  <q>Yes, flying and so forth.  You\'re a lovely fellow and I\'d be delighted to help you realize a dream, but... there are certain hardware requirements.  Namely, wings or flaps or something.  I\'m afraid your people just aren\'t built for flight.</q>  She hangs her beak, looking down at her talons.',
 
     '<q>Sorry little dog, but there are some things even magic cannot accomplish.</q>'
     ]
@@ -243,12 +243,12 @@ aery: Room 'Aery'
 
 +++AltTopic
     "Fizzelump blushes at your attention and, mastering herself, carefully leans down to fondly nuzzle your muzzle with her beak.  <q>Thank you thank you for finding our cublet!  Magic is amazing, but it pales in comparison to the majesty that is dog.  You're so brave and talented, I'm sure we can figure something out to help you fly.  Look around and we'll do the same -- maybe the solution is right in front of us!</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != griffinDog) 
 ;
 
 +++AltTopic 
     "<q>Ooh hey, that harness-y thingamajig might just work! I, uh, I'm not the best with artifice, however.  My jam is more sparkles and stupendous sounds and explosions!  Maybe Mallory could help?</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
@@ -258,7 +258,7 @@ aery: Room 'Aery'
 ;
 
 ++AskTellTopic, StopEventList @flightTopic
-    ['<q>Chuff!  Snort?</q>*You sneeze and snort to clear your sniffer, and then assess Warkmana\'s mood.  She\'s upset, which doesn\'t bode well for your questioning.  Still, you whine and paw at her wings, wagering that she might appreciate a distraction.*<.p>Warkmana, looking stressed and distracted, shakes her head dismissively at you. <q>No no, don\'t be silly.  You\'re a dog, of course you can\'t fly!  If you\'ll excuse me, I\'ve got an errant cublet to find.</q>'
+    ['<q>Chuff!  Snort?</q>*You sneeze and snort to clear your sniffer, and then assess Warkmana\'s mood.  She\'s upset, which doesn\'t bode well for your questioning.  Still, you whine and paw at her wings, wagering that she might appreciate a distraction.*<.p>Warkmana, looking stressed and distracted, shakes her head dismissively at you. <q>No no, don\'t be silly.  You\'re a dog, of course you can\'t fly!  If you\'ll excuse me, I\'ve got an errant cublet to find.</q>',
 
     'Warkmana is too busy searching under everything and shooing cublets out of her path to listen.'
     ]
@@ -266,32 +266,55 @@ aery: Room 'Aery'
 
 +++AltTopic
     "Wrapping her wings about you in an avian hug, Warkmana smothers you with affectionate nips and licks for a solid minute.  <q>You found her, you found my little Muffynx!  I don't know what we would have done without your sniffer.  I'll do anything to help you, but I don't know how to make a dog fly.</q>  She looks pained as she pulls away from you.  <q>Try asking our brainy types, Fizzelump and Mallory; they're the creative problem solvers around here.</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != griffinDog) 
 ;
 
 +++AltTopic 
     "<q>Say, that contraption looks promising!  I think.  Perhaps Mallory or Fizzelump would know what to do with it?</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
 + librarianGriffin: Actor 'nerd bird/lion/griffin/librarian/mallory' 'Mallory'
     "With practiced grace and the utmost care, this giant griffin turns the pages of a musty tome with a jet-black talon.  Her name is Mallory, and her attention is entirely absorbed by her book.  Hrumph -- If they could make a book with a smelly interface, you'd be an avid reader too. "
     isProperName = true
     isHer = true
+    /* Indicates whether or not Mallory has been functionally disturbed by conversation with the player */
+    poked = nil
 ;
 
-++AskTellTopic, StopEventList @flightTopic
-    ['<q>Hawooooo wooo woo roo wuf.  Arf?</q>*Seeing that she\'s distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what\'s making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly, and abruptly twists her head around 180 degrees.  <q>How curious.  I\'ve never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I\'m right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I\'ve penciled you in.  Return 700 years from this day; I\'m free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly.'
-
-    'Mallory\'s attention is consumed by her reading, and she is unavailable to the world.'
-    ]
+++AskTellTopic @flightTopic
+    topicResponse
+    {
+        if(griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog)
+        {
+            mainReport(victoryBlurb);
+            finishGameMsg(ftVictory, []);
+        } 
+        else if(!librarianGriffin.poked)
+        {
+            mainReport('<q>Hawooooo wooo woo roo wuf.  Arf?</q>*Seeing that she\'s distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what\'s making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly, and abruptly twists her head around 180 degrees.  <q>How curious.  I\'ve never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I\'m right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I\'ve penciled you in.  Return 700 years from this day; I\'m free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly.');
+            librarianGriffin.poked = true;
+        } 
+        else
+        {
+            mainReport('Mallory\'s attention is consumed by her reading, and she is unavailable to the world.');
+        }
+    }
 ;
 
-+++AltTopic 
-    "Her interest finally piqued by the smell of leather and hemp in a complex configuration, the smell of prototyping, Mallory looks up from her studies.  <q>Ah, now that's a pretty thing.  Hmm, yes I see -- you're little hooves or paws or some such would fit inside the cuffs here with a loop 'round your middle.  The harness would fasten over a griffin's body here with the rope securing it there and there... It might just work!  I'm interested now, and we must see this experiment through to fruition.  Come!  I will help you hook up one of the others, mm, Scout, for testing.</q>"
-    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
-    finishGameMsg('victory placeholder')
-    /* todo: run victory condition*/
+++GiveShowTopic @griffinDogHarness
+    topicResponse
+    {
+        if(griffinDog.snifferDemoed)
+        {
+            mainReport(victoryBlurb);
+            finishGameMsg(ftVictory, []);
+        }
+        else
+        {
+            "Mallory seems totally lost in her book.  Though she puts forth an aloof facade, you sense she is deeply troubled by something.";
+        }
+    }
 ;
 
 /*
@@ -303,6 +326,44 @@ aery: Room 'Aery'
  */
 + sturdyRope: Thing 'old sturdy hempen rope/twine/bindings/rope' 'rope'
     "A coil of sturdy rope, well-worn and proven from heavy use."
+
+    dobjFor(UseOn)
+    {
+        verify()
+        {
+            if(gIobj != quadrapedStand)
+            {
+                illogical('It wouldn\'t be very nice to tie up {the iobj/him/her}... at least without permission.');
+            }
+        }
+        action()
+        {
+            /* inherit the default handling */
+            inherited();
+
+            /* make dog harness and give to Griffin */
+            griffinDogHarness.makeDogHarness();
+        }
+    }
+
+    iobjFor(UseOn)
+    {
+        verify()
+        {
+            if(gDobj != quadrapedStand)
+            {
+                illogical('{The dobj/he/she} can\'t combine directly with the rope');
+            }
+        }
+        action()
+        {
+            /* inherit the default handling */
+            inherited();
+
+            /* make dog harness and give to Griffin */
+            griffinDogHarness.makeDogHarness();
+        }
+    }
 ;
 
 + spellBook: Thing 'spells/book/spell book/grimoire' 'spell book'
@@ -407,26 +468,68 @@ aery: Room 'Aery'
      *   message, which will automatically override the default message
      *   that the base class produces.  Then add the GriffinDogHarness to player inventory. 
      */
-    dobjFor(Use)
+    dobjFor(UseOn)
     {
+        verify()
+        {
+            if(gIobj != sturdyRope)
+            {
+                illogical('{The dobj} can\'t combine directly with {the iobj/him/her}');
+            }
+        }
         action()
         {
             /* inherit the default handling */
             inherited();
 
-            // todo: how do we check what object the current object was used on?
+            /* make dog harness and give to Griffin */
+            griffinDogHarness.makeDogHarness();
+        }
+    }
 
-            /* show our special description */
-            "With a little ingenuity and many fervent wishes for thumbs, you manage to connect the rope to the stand.  This creates a sort of makeshift harness, in which you could be secured snuggle-y. ";
+    iobjFor(UseOn)
+    {
+        verify()
+        {
+            if(gDobj != sturdyRope)
+            {
+                illogical('{The dobj/he/she} can\'t combine directly with {the iobj}');
+            }
+        }
+        action()
+        {
+            /* inherit the default handling */
+            inherited();
 
-            // todo: how do we dynamically create and/or add a static object to the player inventory?
+            /* make dog harness and give to Griffin */
+            griffinDogHarness.makeDogHarness();
         }
     }
 ;
 
+
+
 griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
     "The griffin-dog harness provides a lovely interface allowing a dog to
     safely ride a griffin in flight."
+    makeDogHarness()
+    {
+        if(!self.bHarnessMade)
+        {
+            self.bHarnessMade = true;
+
+            /* show our special description */
+            "With a little ingenuity and many fervent wishes for thumbs, you manage to connect the rope to the stand.  This creates a sort of makeshift harness, in which you could be secured snuggle-y. ";
+
+            /* move harness to dog */
+            self.moveInto(griffinDog);
+
+            /* remove sturdy rope and stand since they were combined into the harness */
+            sturdyRope.moveInto(nil);
+            quadrapedStand.moveInto(nil);
+        }
+    }
+    bHarnessMade = nil
 ;
 
 /*
@@ -461,6 +564,11 @@ griffinDog: Actor
     * Mr. Griffin needs to show off his sniffing skillz to impress the griffins
     */
     snifferDemoed = nil
+
+    /*
+     * Message to be displayed when the user has hit the victory condition
+     */
+    victoryBlurb = 'Her interest finally piqued by the smell of leather and hemp in a complex configuration, the smell of prototyping, Mallory looks up from her studies.  <q>Ah, now that\'s a pretty thing.  Hmm, yes I see -- your little hooves or paws or some such would fit inside the cuffs here with a loop \'round your middle.  The harness would fasten over a griffin\'s body here with the rope securing it there and there... It might just work!  I\'m interested now, and we must see this experiment through to fruition.  Come!  I will help you hook up one of the others, mm, Scout, for testing.</q><.p>And lo, that day a dog did fly: Mallory and Fizzelump collaborated to hook your dog harness invention up to Scout, who gladly submitted to the experiment.  Once he was fitted properly, they boosted you up on his back and secured you in the harness; with its radially free-floating design, you can move about around his back and even underneath his belly to get the best angle for smelling out intriguing scent vectors.  Your first flight together is magical, with the open sky and jealous birds being more than you\'d ever dared to hope for.  Possibilities for exploration and discovery abound, but more importantly your ears and tongue may flap frantically in the high-atmosphere, high-velocity winds of total freedom.  Scout was astounded at the accuracy of your sniffer in picking out details his keen eyes missed, and his scouting mission brought back more info than ever before.  The thrill of flight was so intoxicating that your propeller tail actually wagged you off the surface of Scout\'s back a few times, a phenomenon he took note of carefully.  Once back at the Aery, he asked Mallory and Fizzelump to tutor you on the basics of aerodynamics and in no time at all you were able to achieve a sort of helicopter-y flight on your own via the boundless energy of your wagging tail.  It\'s still rather faster to fly atop the griffins, but your accumen and unique talents have in every way earned you the title of Littlest Griffin.';
 ; 
 
 /*
