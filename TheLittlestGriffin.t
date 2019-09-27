@@ -7,7 +7,7 @@ Brainstorming:
     --the griffins talk about a child going missing, one of the reasons they're impatient with Griffin's request to learn to fly.
     --puzzle 1 is that player needs to tell them he can smell and find a baby griffin nearby apart from all the rest, which makes them grateful and interests
       Scout in Griffin's sniffer.
-    --puzzle 2 is that Griffin must use the Ropes on the Inexplicable Quadraped Stand to create a griffin-dog harness.
+    --puzzle 2 is that Griffin must use the Ropes on the Inexplicable Quadraped Stand to create a griffin-dog harness.  Showing this harness to Mallory will cause her to see the potential in the invention and initiate hooking it up to Scout, winning the game.  In the victory description, we should mention Mr. Griffin's sniffer being a huge help to Scout AND his helicopter tail eventually leading to his own unique take on flight after he gets the hang of aerodynamics.
 */
 
 /*
@@ -95,6 +95,25 @@ DefineTAction(Chew);
      }
    ;
 
+DefineTIAction(UseOn);
+
+   VerbRule(UseOn)
+     'use' singleDobj 'on' singleIobj
+     : UseAction
+     verbPhrase = 'use (what) (on what)'
+   ;
+
+   modify Thing
+     dobjFor(UseOn)
+     {
+       verify() 
+       {
+         illogical('There\'s no obvious way to use {dobj/him/her} on 
+                   {dobj/him/her}. ');
+       }
+     }
+   ;
+
 /* Topics of discussion */
 flightTopic: Topic 'fly/flight/flying/wings/bird';
 magicTopic: Topic 'magic/sorcery/mysticism/math';
@@ -154,6 +173,22 @@ aery: Room 'Aery'
     }
 ;
 
+++AskTellTopic, StopEventList @flightTopic
+    ['<q>Roof?  Woowoof.</q>*You wag in circles and stamp your paws a few times, excited to deal with the reasonable and adventuresome-looking Scout.*<.p>Scout shakes his beak sadly and explains, <q>You\'ve got the spirit for flight and no mistake.  We have no physical support for this spirit in you, however -- your body just isn\'t really conducive to flight.  I\'m sorry little guy, but I don\'t think there\'s anything we can do to help you.</q>',
+
+    '<q>Still no idea how we can help you, little dog.  I really am sorry.</q>.']
+;
+
++++AltTopic
+    "Crowing his appreciation, Scout dips his beak and bends his front feet in a deep bow.  <q>Thanks to you our family is whole again!  Oh how I wish we could help you achieve your dream of flight...</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+;
+
++++AltTopic
+    "Looking curiously at the harness you've put together, Scout remarks, <q>What an ingenious device!  I'm not sure how we should hook it up, but it suggests some sort of collaboration between us.  Maybe flight by proxy?</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
+;
+
 /*
  *   Define the warrior griffin.  
  *   
@@ -166,6 +201,22 @@ aery: Room 'Aery'
     patches without feather coverage.  His name is Dashwick and he doesn't seem very friendly.  Even so, you long to lick his beak -- it looks salty! "
     isProperName = true
     isHim = true
+;
+
+++AskTellTopic, StopEventList @flightTopic
+    ['<q>Snuff.  Snurf?</q>*Slightly intimidated by this buff fellow and his stern expression, you approach your questioning rather more cautiously than usual.*<.p>Dashwick levels a withering gaze at you.  <q>No, you cannot fly.  You are a land-based creature and you have neither wings nor any other means of conquering gravity.  It is hopeless; give up and stop wasting our time.</q>',
+
+    'Dashwick refuses to acknowledge you further.']
+;
+
++++AltTopic
+    "Dashwick bows his beak to you respectfully.  <q>You've done us a great service in finding our missing cublet, Mr. Dog.  However, I still cannot help you to fly; you'll need a more inventive mind to figure this out.</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location != me) 
+;
+
++++AltTopic 
+    "<q>What a fascinating piece of equipment!</q>  Dashwick gushes over your harness.  <q>I'm afraid I don't know quite how it would be used, though.</q>"
+    isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == me) 
 ;
 
 + wizardGriffin: Actor 'wise bird/lion/griffin/wizard/fizzelump' 'Fizzelump'
@@ -204,7 +255,7 @@ aery: Room 'Aery'
 ;
 
 ++AskTellTopic @flightTopic
-    "<q>Hawooooo wooo woo wuf.  Arf?</q>*Seeing that she's distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what's making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly.  <q>How curious.  I've never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I'm right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I've penciled you in.  Return 700 years from this day; I'm free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly."
+    "<q>Hawooooo wooo woo roo wuf.  Arf?</q>*Seeing that she's distracted by her magical squiggles, you howl joyfully to get her attention.  As she looks up to see what's making noise you give her your best doggy grin, panting with enthusiasm.*<.p><q>Hmm? Flying?  Yes, we can fly.  Oh, you want to learn to fly?</q>  She peers at you, blinking owlishly.  <q>How curious.  I've never heard of a dog who could fly, and the aerodynamics would be quite challenging.  That said, all things are possible with enough ingenuity!  I would be interested in joining your project, but... I'm right in the middle of a fascinating book which compels SEVERAL research projects.</q>  Nipping at her plumage, she extracts an appointment book from someplace.  She consults it for a moment, then flips many many pages and pecks a codified sequence into a date.  <q>I've penciled you in.  Return 700 years from this day; I'm free for a bit then.</q>  Returning to her book, Mallory misses your ears drooping sadly."
 ;
 
 /*
