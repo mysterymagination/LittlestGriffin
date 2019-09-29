@@ -7,7 +7,7 @@ Brainstorming:
     --the griffins talk about a child going missing, one of the reasons they're impatient with Griffin's request to learn to fly.
     --puzzle 1 is that player needs to tell them he can smell and find a baby griffin nearby apart from all the rest, which makes them grateful and interests
       Scout in Griffin's sniffer.
-    --puzzle 2 is that Griffin must use the Ropes on the Inexplicable Quadraped Stand to create a griffin-dog harness.  Showing this harness to Mallory will cause her to see the potential in the invention and initiate hooking it up to Scout, winning the game.  In the victory description, we should mention Mr. Griffin's sniffer being a huge help to Scout AND his helicopter tail eventually leading to his own unique take on flight after he gets the hang of aerodynamics.
+    --puzzle 2 is that Griffin must use the Ropes on the Inexplicable Quadruped Stand to create a griffin-dog harness.  Showing this harness to Mallory will cause her to see the potential in the invention and initiate hooking it up to Scout, winning the game.  In the victory description, we should mention Mr. Griffin's sniffer being a huge help to Scout AND his helicopter tail eventually leading to his own unique take on flight after he gets the hang of aerodynamics.
 */
 
 /*
@@ -71,7 +71,7 @@ versionInfo: GameID
     }
     showAbout()
     {
-        "This game was created to evalutate TADS 3. Also, to immortalize Mr. Griffin, Friendliest of Hounds.";
+        "This game was created to evaluate TADS 3. Also, to immortalize Mr. Griffin, Friendliest of Hounds.";
     }
 ;
 
@@ -117,6 +117,7 @@ DefineTIAction(UseOn);
 /* Topics of discussion */
 flightTopic: Topic 'fly/flight/flying/wings/bird';
 magicTopic: Topic 'magic/sorcery/mysticism/math';
+salutationTopic: Topic 'hi/hiya/hello/greetings/how are you/salutations/hey/hoi/hei/hai';
 
 /* 
  *   Aery location, home of griffins and initially dismissive of Griffin
@@ -169,8 +170,37 @@ aery: Room 'Aery'
     describeHarness
     {
         if (griffinDogHarness.isIn(scoutGriffin))
-            ", dog-style quadraped harness rigged up and ready to go 'round his middle',";
+            ", dog-style quadruped harness rigged up and ready to go 'round his middle',";
     }
+;
+
+/* attempt to match any ask/tell involving mentioning a cublet and any indicators that you have smelled it outside or on the ground level or in the bushes... */
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            /* the player has to tell someone about the cublet right after they sniff out the missing cublet */
+            if(griffinDog.bCubletSmelled)
+            {
+                "Scout rushes to a window and looks out.  <q>Are you certain?  I don't see anything... I shall investigate!</q>  He zooms out the window and down to the ground, and commences snuffling through the bushes.  After a few minutes he returns with a tiny cublet held carefully in his beak.  There are squawks of rejoice from the others as he deposits the little one safely with the others.  <q>Thank you so much mister dog!  That's some sniffer you've got; we'd been searching all day in vain.</q>  He tilts his head thoughtfully.  <q>My scouting work could benefit greatly from your wiggly snoot, and I bet your tail wagging would give us some sort of aerodynamic boost!  If only there were a way for us to fly together...</q>";
+                griffinDog.snifferDemoed = true;
+                griffinDog.endDaemon();
+            }
+            else 
+            {
+                "Scout rushes to a window and looks out.  <q>Are you certain?  I don't see anything... I shall investigate!</q>  He zooms out the window and down to the ground, and commences snuffling through the bushes.  After a few minutes he returns with nothing.  <q>I appreciate your wish to help little dog, but there is nothing down there now.</q>";
+            }
+        }
+        else 
+        {
+            "He looks at you, confused.  <q>We're not missing any cublets, thanks to you.  Maybe you're still smelling the same one from before?</q>";
+        }
+    }
+;
+
+++AskTellTopic @salutationTopic
+    "<q>Hello little dog!</q>  Scout greets you distractedly, his keen eyes searching the room and his attention clearly elsewhere."
 ;
 
 ++AskTellTopic, StopEventList @flightTopic
@@ -189,6 +219,10 @@ aery: Room 'Aery'
     isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
+++GiveShowTopic @griffinDogHarness
+    "<q>What a marvelous contraption!  I don't quite see what it's good for, but well done you for making it.  Maybe Mallory would be intrigued?</q>";
+;
+
 /*
  *   Define the warrior griffin.  
  *   
@@ -201,6 +235,24 @@ aery: Room 'Aery'
     patches without feather coverage.  His name is Dashwick and he doesn't seem very friendly.  Even so, you long to lick his beak -- it looks salty! "
     isProperName = true
     isHim = true
+;
+
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "<q>Really?!  That's a bold claim, that our young one has been under our noses all this time.</q>  He eyes you skeptically.  <q>Go tell Scout; he's got the sharpest eyes of us all and will surely find the cublet if you're right.</q>";
+        }
+        else 
+        {
+            "<q>We already located the errant cublet.  Don't spread rumors that might excite people, please.</q>";
+        }
+    }
+;
+
+++AskTellTopic @salutationTopic
+    "<q>Mm.</q>  Dashwick grunts dismissively."
 ;
 
 ++AskTellTopic, StopEventList @flightTopic
@@ -219,14 +271,34 @@ aery: Room 'Aery'
     isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
+++GiveShowTopic @griffinDogHarness
+    "<q>How curious.  I have little interest in inventions and similar idle matters; try the brainy ones.</q>  He nods towards Mallory and Fizzelump.";
+;
+
 + wizardGriffin: Actor 'wise bird/lion/griffin/wizard/fizzelump' 'Fizzelump'
     "The wise wizard griffin Fizzelump eyes you curiously.  Her pointy hat with
     stars on is a bit too large and continuously slips down over her eyes, accounting for her perpetual side-to-side head tilting.  Also she's part bird. "
     isProperName = true
     isHer = true
-
-    
 ;   
+
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "<q>The missing cublet is outside?  You've smelled him?</q>  Her eyes light up and she bounces on her talons.  <q>Quick quick, go tell Scout; he's our looker/finder-y person.</q>";
+        }
+        else 
+        {
+            "She smiles at you, whispering, <q>We already know how cool you are!  You needn't keep trying so hard.</q>";
+        }
+    }
+;
+
+++AskTellTopic @salutationTopic
+    "<q>Hiya mister dog!  Always great to meet a new species.</q>  Fizzelump smiles encouragingly at you, but doesn't seem to know how to proceed with the conversation."
+;
 
 ++AskTellTopic @magicTopic
     "<q>Woof?</q> *Your question is understood to be on the nature of magic and its interconnection with the laws of nature.*
@@ -251,10 +323,32 @@ aery: Room 'Aery'
     isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
+++GiveShowTopic @griffinDogHarness
+    "<q>Oooh neat-o!  I don't really do hardware stuffs though, so I'm not sure what to make of it.  Maybe try our clever Mallory-gal?</q>";
+;
+
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
     "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
     isProperName = true
     isHer = true
+;
+
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "<q>Ehwot?!  The cublet is outside?  Well go and tell Scout right away; the poor dear could be in danger out there!</q>";
+        }
+        else 
+        {
+            "Warkmana's eyes go wide for a moment, then she quickly counts the cublets and seems to relax.  <q>Nope, all accounted for.</q>";
+        }
+    }
+;
+
+++AskTellTopic @salutationTopic
+    "Warkmana spares you a harried glance before returning to searching beneath hay and blankets and cublets for something.  <q>Yes, yes, hello and so forth.  I'm rather busy for pleasantries at the moment.</q>"
 ;
 
 ++AskTellTopic, StopEventList @flightTopic
@@ -274,6 +368,10 @@ aery: Room 'Aery'
     isActive = (griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog) 
 ;
 
+++GiveShowTopic @griffinDogHarness
+    "<q>What's that for?  I have little time for games or toys, unless that's intended for the cublets.</q>  She rushes off after a cublet on its merry way toward certain death in the fireplace before you can respond.";
+;
+
 + librarianGriffin: Actor 'nerd bird/lion/griffin/librarian/mallory' 'Mallory'
     "With practiced grace and the utmost care, this giant griffin turns the pages of a musty tome with a jet-black talon.  Her name is Mallory, and her attention is entirely absorbed by her book.  Hrumph -- If they could make a book with a smelly interface, you'd be an avid reader too. "
     isProperName = true
@@ -282,13 +380,31 @@ aery: Room 'Aery'
     poked = nil
 ;
 
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "Mallory looks up from her book with an anxious gleam in her eye, her attention clearly and uncharacteristically completely separated from her work.  <q>You think you've spotted the cublet?!  Get Scout to fetch him -- quickly, please!</q>";
+        }
+        else 
+        {
+            "<q>No no, you already found the missing one for us.  There can't be more than one cublet crisis in a given day; it isn't allowed!</q>  Her eyes twitch slightly and she somehow manages to read with fierce determination.";
+        }
+    }
+;
+
+++AskTellTopic @salutationTopic
+    "Without looking up from her studies, Mallory points a talon at a sign beside her.  You can't read it, but you discern it states something about not disturbing the scholar at her work without a specific reason."
+;
+
 ++AskTellTopic @flightTopic
     topicResponse
     {
         if(griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog)
         {
-            mainReport(victoryBlurb);
-            finishGameMsg(ftVictory, []);
+            mainReport(griffinDog.victoryBlurb);
+            finishGameMsg(ftVictory, [finishOptionUndo]);
         } 
         else if(!librarianGriffin.poked)
         {
@@ -307,8 +423,8 @@ aery: Room 'Aery'
     {
         if(griffinDog.snifferDemoed)
         {
-            mainReport(victoryBlurb);
-            finishGameMsg(ftVictory, []);
+            mainReport(griffinDog.victoryBlurb);
+            finishGameMsg(ftVictory, [finishOptionUndo]);
         }
         else
         {
@@ -331,7 +447,7 @@ aery: Room 'Aery'
     {
         verify()
         {
-            if(gIobj != quadrapedStand)
+            if(gIobj != quadrupedStand)
             {
                 illogical('It wouldn\'t be very nice to tie up {the iobj/him/her}... at least without permission.');
             }
@@ -350,7 +466,7 @@ aery: Room 'Aery'
     {
         verify()
         {
-            if(gDobj != quadrapedStand)
+            if(gDobj != quadrupedStand)
             {
                 illogical('{The dobj/he/she} can\'t combine directly with the rope');
             }
@@ -456,9 +572,9 @@ aery: Room 'Aery'
 ;
 
 /*
- *   Put the inexplicable quadraped stand in the crate. 
+ *   Put the inexplicable quadruped stand in the crate. 
  */
-++ quadrapedStand: Thing 'inexplicable quadraped stand/platform/stand' 'stand'
+++ quadrupedStand: Thing 'inexplicable quadruped stand/platform/stand' 'stand'
     "No one remembers who ordered this strange static mesh of hard leather apparently intended to secure a four-footed creature to a surface.  Handy, though! "
 
     /* 
@@ -526,7 +642,7 @@ griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
 
             /* remove sturdy rope and stand since they were combined into the harness */
             sturdyRope.moveInto(nil);
-            quadrapedStand.moveInto(nil);
+            quadrupedStand.moveInto(nil);
         }
     }
     bHarnessMade = nil
@@ -548,18 +664,47 @@ griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
 griffinDog: Actor
     /* the initial location is the entryway */
     location = aery
-    smellyDaemonId = new Daemon(self, &processSmellyDaemon, 1)
-    smellyDaemon
+    bCubletSmelled = nil
+    smellyDaemonId = nil
+    
+    /* after any action, try to register the daemon.  For some reason simply reging the daemon as a property directly did not work */
+    afterAction()
     {
-        switch(rand(3))
+        /* create or recreate the daemon iff it is not active AND we have not already demoed the sniffer, which is the switch indicating the rogue cublet has been found.  If the cublet had already been found, there's no further need for the daemon */
+        if(smellyDaemonId == nil && !self.snifferDemoed)
         {
-            // todo: only report smell on some set interval instead of every turn, and
-            // griffins must be told to look for the cublet on one of those turns (reflecting the possibility of cublet moving around in the bushes?)
-            case 0: "Most of the different things around the aery tower are tightly grouped, forming pockets of intense categorical scent.  You can smell an exception outside, however, a whiff reminiscent of the Warkmana from the bushes at the base of the tower."; break; 
-            case 1: "Your ears prick up slightly as a faint high-pitched whisper, perhaps the ghost of a cry, wafts in from the high windows.  Pointing your sniffer in the direction of the sound, you pick out the scent of eggshells and wet feathers mixed in with a much stronger scent of holly leaves from the ground far, far below."; break;
-            case 2: "A griffin cublet ambles by, warking softly, and falls flat on its belly after bumping into Warkmana's right rear paw.  You're stricken by how very much it does not smell of holly, in contrast to a similar scent that tickles your snoot from outside."; break;
+            smellyDaemonId = new Daemon(self, &processSmellyDaemon, 1);
         }
     }
+
+    processSmellyDaemon
+    {
+        switch(rand(6))
+        {
+            case 0: "Most of the different things around the aery tower are tightly grouped, forming pockets of intense categorical scent.  You can smell an exception outside, however, a whiff reminiscent of the Warkmana from the bushes at the base of the tower. \n"; 
+            bCubletSmelled = true; 
+            break; 
+            case 1: "Your ears prick up slightly as a faint high-pitched whisper, perhaps the ghost of a cry, wafts in from the high windows.  Pointing your sniffer in the direction of the sound, you pick out the scent of eggshells and wet feathers mixed in with a much stronger scent of holly leaves from the ground far, far below. \n";
+            bCubletSmelled = true; 
+            break; 
+            case 2: "A griffin cublet ambles by, warking softly, and falls flat on its belly after bumping into Warkmana's right rear paw.  You're stricken by how very much it does not smell of holly, in contrast to a similar scent that tickles your snoot from outside. \n"; 
+            bCubletSmelled = true; 
+            break; 
+            case 3: self.bCubletSmelled = nil; break;
+            case 4: self.bCubletSmelled = nil; break;
+            case 4: self.bCubletSmelled = nil; break;
+        }
+    }
+
+    endDaemon()
+    {
+        if(smellyDaemonId != nil)
+        {
+            smellyDaemonId.removeEvent();
+            smellyDaemonId = nil;
+        }
+    }
+
     /*
     * Mr. Griffin needs to show off his sniffing skillz to impress the griffins
     */
@@ -568,7 +713,7 @@ griffinDog: Actor
     /*
      * Message to be displayed when the user has hit the victory condition
      */
-    victoryBlurb = 'Her interest finally piqued by the smell of leather and hemp in a complex configuration, the smell of prototyping, Mallory looks up from her studies.  <q>Ah, now that\'s a pretty thing.  Hmm, yes I see -- your little hooves or paws or some such would fit inside the cuffs here with a loop \'round your middle.  The harness would fasten over a griffin\'s body here with the rope securing it there and there... It might just work!  I\'m interested now, and we must see this experiment through to fruition.  Come!  I will help you hook up one of the others, mm, Scout, for testing.</q><.p>And lo, that day a dog did fly: Mallory and Fizzelump collaborated to hook your dog harness invention up to Scout, who gladly submitted to the experiment.  Once he was fitted properly, they boosted you up on his back and secured you in the harness; with its radially free-floating design, you can move about around his back and even underneath his belly to get the best angle for smelling out intriguing scent vectors.  Your first flight together is magical, with the open sky and jealous birds being more than you\'d ever dared to hope for.  Possibilities for exploration and discovery abound, but more importantly your ears and tongue may flap frantically in the high-atmosphere, high-velocity winds of total freedom.  Scout was astounded at the accuracy of your sniffer in picking out details his keen eyes missed, and his scouting mission brought back more info than ever before.  The thrill of flight was so intoxicating that your propeller tail actually wagged you off the surface of Scout\'s back a few times, a phenomenon he took note of carefully.  Once back at the Aery, he asked Mallory and Fizzelump to tutor you on the basics of aerodynamics and in no time at all you were able to achieve a sort of helicopter-y flight on your own via the boundless energy of your wagging tail.  It\'s still rather faster to fly atop the griffins, but your accumen and unique talents have in every way earned you the title of Littlest Griffin.';
+    victoryBlurb = 'Her interest finally piqued by the smell of leather and hemp in a complex configuration, the smell of prototyping, Mallory looks up from her studies.  <q>Ah, now that\'s a pretty thing.  Hmm, yes I see -- your little hooves or paws or some such would fit inside the cuffs here with a loop \'round your middle.  The harness would fasten over a griffin\'s body here with the rope securing it there and there... It might just work!  I\'m interested now, and we must see this experiment through to fruition.  Come!  I will help you hook up one of the others, mm, Scout, for testing.</q><.p>And lo, that day a dog did fly: Mallory and Fizzelump collaborated to hook your dog harness invention up to Scout, who gladly submitted to the experiment.  Once he was fitted properly, they boosted you up on his back and secured you in the harness; with its radially free-floating design, you can move about around his back and even underneath his belly to get the best angle for smelling out intriguing scent vectors.  Your first flight together is magical, with the open sky and jealous birds being more than you\'d ever dared to hope for.  Possibilities for exploration and discovery abound, but more importantly your ears and tongue may flap frantically in the high-atmosphere, high-velocity winds of total freedom.  Scout was astounded at the accuracy of your sniffer in picking out details his keen eyes missed, and his scouting mission brought back more info than ever before.  The thrill of flight was so intoxicating that your propeller tail actually wagged you off the surface of Scout\'s back a few times, a phenomenon he took note of carefully.  Once back at the Aery, he asked Mallory and Fizzelump to tutor you on the basics of aerodynamics and in no time at all you were able to achieve a sort of helicopter-y flight on your own via the boundless energy of your wagging tail.  It\'s still rather faster to fly atop the griffins, but your acumen and unique talents have in every way earned you the title of Littlest Griffin.';
 ; 
 
 /*
