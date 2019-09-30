@@ -404,7 +404,7 @@ aery: Room 'Aery'
         if(griffinDog.snifferDemoed && griffinDogHarness.location == griffinDog)
         {
             mainReport(griffinDog.victoryBlurb);
-            finishGameMsg(ftVictory, [finishOptionUndo]);
+            finishGameMsg(ftVictory, [finishOptionCredits]);
         } 
         else if(!librarianGriffin.poked)
         {
@@ -424,7 +424,7 @@ aery: Room 'Aery'
         if(griffinDog.snifferDemoed)
         {
             mainReport(griffinDog.victoryBlurb);
-            finishGameMsg(ftVictory, [finishOptionUndo]);
+            finishGameMsg(ftVictory, [finishOptionCredits]);
         }
         else
         {
