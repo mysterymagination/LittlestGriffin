@@ -8,6 +8,7 @@
 # discarded, the formatting might be changed, and some option
 # settings might be modified.
 
+-D TADS_INCLUDE_NET
 -D LANGUAGE=en_us
 -D MESSAGESTYLE=neu
 -Fy obj
@@ -16,7 +17,9 @@
 
 ##sources
 -lib system
--lib adv3/adv3
+-lib adv3/adv3web
+-lib webui
+-source tadsnet
 -source TheLittlestGriffin
 
 -res
