@@ -280,7 +280,19 @@ aery: Room 'Aery'
     stars on is a bit too large and continuously slips down over her eyes, accounting for her perpetual side-to-side head tilting.  Also she's part bird. "
     isProperName = true
     isHer = true
+    defaultGreetingResponse(otherActor)
+    {
+        "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or personal space, so you wag harder and play bow in invitation.";
+    }
 ;   
+
++ cubletGriffins: Actor 'cub/cublet/baby/pup/puppy' 'Cublets'
+    "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval."
+    isProperName = false
+    isHer = true
+    isHim = true
+    isPlural = true
+; 
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
     topicResponse()

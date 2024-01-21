@@ -1,0 +1,6 @@
+*.zip
+*.t3
+debug/
+obj/
+Scripts/
+web/

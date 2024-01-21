@@ -1,0 +1,13 @@
+IFID: 0719d90b-139f-448d-810b-f5622b8d94fc
+Name: The Littlest Griffin
+Byline: by Jeff Creswell
+HtmlByline: by <a href="mailto:creswel2@gmail.com"> Jeff Creswell</a>
+AuthorEmail: Jeff Creswell <creswel2@gmail.com>
+Desc: A one room micro adventure starring Mr. Griffin the dog and actual griffins.
+HtmlDesc: A one room micro adventure starring Mr. Griffin the dog and actual griffins.
+Version: 1
+ReleaseDate: 2024-01-20
+Language: en-US
+LicenseType: Freeware
+CopyingRules: Nominal cost only; compilations allowed
+PresentationProfile: Default
