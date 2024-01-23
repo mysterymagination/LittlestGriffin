@@ -15,7 +15,7 @@ src win edit mode:%tads%lib\webui.t:S:0:TADS 3
 build:c ops:I:0
 SearchToolbar:rebarNewLine:I:0
 log win vis::I:1
-log win pos::R:221,124,3438,1367
+log win pos::R:221,124,1918,1007
 MenuBar:rebarVis:I:1
 line wrap:%tads%lib\adv3\actor.t:S:0:N
 DocToolbar:rebarIndex:I:3
@@ -62,9 +62,9 @@ auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
 auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
 SearchToolbar:rebarIndex:I:2
 search:wrap:I:1
-auto-script:next-id:I:48
+auto-script:next-id:I:64
 SearchToolbar:rebarWidth:I:281
-search:text:S:0:stand
+search:text:S:0:lostcubl
 search:text:S:1:
 docking config::S:0:CL
 docking config::S:1:W0,219,270,2,531,302,681,D,L,project win
@@ -85,14 +85,14 @@ mdi win list::S:2:%tads%lib\adv3\actor.t
 mdi win list::S:3:%tads%lib\adv3\en_us\en_us.t
 mdi win list::S:4:%tads%lib\webui.t
 build:webpage dir:S:0:web
-main win pos::R:-8,-8,3448,1400
+main win pos::R:-8,-8,1928,1040
 build:srczipfile:S:0:TheLittlestGriffinSource.zip
 proj search:whole word:I:0
 help win vis::I:0
 build:ignore case:I:0
 docsearch win vis::I:0
 build:exe:S:0:TheLittlestGriffin.exe
-script win:pos:R:2,1238,212,1367
+script win:pos:R:2,921,212,1007
 script win:vis:I:1
 build:use charmap:I:0
 src win split:TheLittlestGriffin.t:S:0:0.000000
@@ -131,19 +131,19 @@ locals win:sep xpos 1:I:142
 search:whole word:I:0
 DebugToolbar:rebarNewLine:I:1
 build:debug_image_file:S:0:debug\TheLittlestGriffin.t3
-search dlg:old searches:S:0:stand
-search dlg:old searches:S:1:stabd
-search dlg:old searches:S:2:dobjfor
-search dlg:old searches:S:3:chew
-search dlg:old searches:S:4:snifferdem
-search dlg:old searches:S:5:gamemain
-search dlg:old searches:S:6:addtosco
-search dlg:old searches:S:7:victoryBlurb
-search dlg:old searches:S:8:welcome
-search dlg:old searches:S:9:
+search dlg:old searches:S:0:lostcubl
+search dlg:old searches:S:1:lost cubl
+search dlg:old searches:S:2:.*cublet
+search dlg:old searches:S:3:scout
+search dlg:old searches:S:4:showfu
+search dlg:old searches:S:5:secured snug
+search dlg:old searches:S:6:victoryBlurb
+search dlg:old searches:S:7:dog did fly
+search dlg:old searches:S:8:stand
+search dlg:old searches:S:9:stabd
 src win selrange:TheLittlestGriffin.t:S:0:0,0
 src win selrange:TheLittlestGriffin.t:S:1:13399,13399
-find dialog:pos:R:1498,593,1942,846
+find dialog:pos:R:572,156,1016,409
 search dlg:old search opts:S:0:
 search dlg:old search opts:S:1:
 search dlg:old search opts:S:2:
@@ -175,7 +175,7 @@ mdi win title::S:4:%tads%lib\webui.t
 search:dir:I:-1
 MenuBar:rebarWidth:I:-1
 build:installer prog:S:0:TheLittlestGriffin_Setup.exe
-project win:pos:R:2,121,212,1212
+project win:pos:R:2,121,212,895
 project win:vis:I:1
 auto-script:dir:S:0:Scripts
 stack win pos::R:307,233,924,441

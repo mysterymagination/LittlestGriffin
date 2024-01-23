@@ -246,7 +246,7 @@ aery: Room 'Aery'
 ;
 
 /* attempt to match any ask/tell involving mentioning a cublet and any indicators that you have smelled it outside or on the ground level or in the bushes... */
-++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
     topicResponse()
     {
         if(!griffinDog.snifferDemoed)
@@ -269,6 +269,10 @@ aery: Room 'Aery'
             "He looks at you, confused.  <q>We're not missing any cublets, thanks to you.  Maybe you're still smelling the same one from before?</q>";
         }
     }
+;
+
+++AskTellTopic '.*cublet.*'
+    "<q>Yes, the cublets are our treasures. We're looking for a lost little one at the moment.</q>  Scout's keen eyes search the room, his attention clearly elsewhere."
 ;
 
 ++AskTellTopic @salutationTopic
@@ -313,7 +317,7 @@ aery: Room 'Aery'
     }
 ;
 
-++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
     topicResponse()
     {
         if(!griffinDog.snifferDemoed)
@@ -325,6 +329,10 @@ aery: Room 'Aery'
             "<q>We already located the errant cublet.  Don't spread rumors that might excite people, please.</q>";
         }
     }
+;
+
+++AskTellTopic '.*cublet.*'
+    "<q>Yes, we're busy looking for our lost one. Go play with the other cublets.</q>"
 ;
 
 ++AskTellTopic @salutationTopic
@@ -362,27 +370,7 @@ aery: Room 'Aery'
     }
 ;   
 
-+ cubletGriffins: Actor 'cubs/cublets/babies/pups/puppies' 'Cublets'
-    "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval."
-    isProperName = false
-    isHer = true
-    isHim = true
-    isPlural = true
-    defaultGreetingResponse(otherActor)
-    {
-        "The cublets are much too busy playing and creating havoc to listen. You nod in fuzzily sage approval of their grand works.";
-    }
-    dobjFor(PlayWith)
-    {
-        verify(){}
-        action() 
-        {
-            "You and the cublets bounce around and chase each other until you all tire and collapse in a fuzzy/feathery heap, transitioning to a good game of bitey-face since it doesn't require movement.";
-        }
-    }
-; 
-
-++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
     topicResponse()
     {
         if(!griffinDog.snifferDemoed)
@@ -394,6 +382,12 @@ aery: Room 'Aery'
             "She smiles at you, whispering, <q>We already know how cool you are!  You needn't keep trying so hard.</q>";
         }
     }
+;
+
+++AskTellTopic '.*cublet.*'
+    "<q>I've never quite been comfortable around the cublets, to be honest; not that I'm comfortable around most people...</q>  
+    She squawks self-consciously and ruffles her feathers to try to cover it up. <q>As it happens, though, I'm quite comfy talking to you, Mr. Dog.</q> She eyes you quizzically, murmuring, 
+    <q>What is your strange dog magic?</q>"
 ;
 
 ++AskTellTopic @salutationTopic
@@ -427,6 +421,26 @@ aery: Room 'Aery'
     "<q>Oooh neat-o!  I don't really do hardware stuffs though, so I'm not sure what to make of it.  Maybe try our clever Mallory-gal?</q>";
 ;
 
++ cubletGriffins: Actor 'cubs/cublets/babies/pups/puppies' 'Cublets'
+    "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval."
+    isProperName = false
+    isHer = true
+    isHim = true
+    isPlural = true
+    defaultGreetingResponse(otherActor)
+    {
+        "The cublets are much too busy playing and creating havoc to listen. You nod in fuzzily sage approval of their grand works.";
+    }
+    dobjFor(PlayWith)
+    {
+        verify(){}
+        action() 
+        {
+            "You and the cublets bounce around and chase each other until you all tire and collapse in a fuzzy/feathery heap, transitioning to a good game of bitey-face since it doesn't require movement.";
+        }
+    }
+; 
+
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
     "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
     isProperName = true
@@ -437,7 +451,7 @@ aery: Room 'Aery'
     }
 ;
 
-++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
     topicResponse()
     {
         if(!griffinDog.snifferDemoed)
@@ -449,6 +463,10 @@ aery: Room 'Aery'
             "Warkmana's eyes go wide for a moment, then she quickly counts the cublets and seems to relax.  <q>Nope, all accounted for.</q>";
         }
     }
+;
+
+++AskTellTopic '.*cublet.*'
+    "<q>Oh, how could I have let one go missing?</q> She frets, too distressed to discuss her brood in general."
 ;
 
 ++AskTellTopic @salutationTopic
@@ -488,7 +506,7 @@ aery: Room 'Aery'
     }
 ;
 
-++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
+++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
     topicResponse()
     {
         if(!griffinDog.snifferDemoed)
@@ -500,6 +518,10 @@ aery: Room 'Aery'
             "<q>No no, you already found the missing one for us.  There can't be more than one cublet crisis in a given day; it isn't allowed!</q>  Her eyes twitch slightly and she somehow manages to read with fierce determination.";
         }
     }
+;
+
+++AskTellTopic '.*cublet.*'
+    "<q>We all love the cublets, of course, but they do manage to be forever sticky somehow, which is suboptimal for the books!</q> She pulls her book to her breast, protectively."
 ;
 
 ++AskTellTopic @salutationTopic
@@ -533,6 +555,8 @@ aery: Room 'Aery'
         {
             mainReport(griffinDog.victoryBlurb);
             addToScore(5, 'flight of The Griffin!');
+            mainReport('\n\n');
+            libScore.showFullScore();
             finishGameMsg(ftVictory, [finishOptionCredits]);
         }
         else
@@ -739,7 +763,7 @@ aery: Room 'Aery'
 
 
 
-griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
+griffinDogHarness: Thing 'griffin dog harness/dog harness/harness/platform/saddle' 'Griffin-Dog Harness'
     "The griffin-dog harness provides a lovely interface allowing a dog to
     safely ride a griffin in flight."
     makeDogHarness()
@@ -749,7 +773,8 @@ griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
             self.bHarnessMade = true;
 
             /* show our special description */
-            "With a little ingenuity and many fervent wishes for thumbs, you manage to connect the rope to the stand.  This creates a sort of makeshift harness, in which you could be secured snuggle-y. ";
+            "With a little ingenuity and many fervent wishes for thumbs, you manage to connect the rope to the stand.  This creates a sort of makeshift harness, in which you could be secured snuggle-y. 
+            You tuck the fancy harness away in your compartment.";
 
             /* move harness to dog */
             self.moveInto(griffinDog);
@@ -856,6 +881,7 @@ gameMain: GameMainDef
         ]
     maxScore = 20
 
+
     /* 
      *   Show our introductory message.  This is displayed just before the
      *   game starts.  Most games will want to show a prologue here,
@@ -864,7 +890,7 @@ gameMain: GameMainDef
      */
     showIntro()
     {
-        "Welcome to the tale and tail of The Littlest Griffin!  You play a dog who longs to fly, and who has approached the mighty half-lion half-eagle griffins seeking flying lessons.  Start by asking your new and instantly beloved friends about flying!\b";
+        "Welcome to the tale and tail of The Littlest Griffin!  You play as the illustrious Mr. Griffin, a dog who longs to fly, and who has approached the mighty half-lion half-eagle griffins seeking flying lessons.  Start by asking your new and instantly beloved friends about flying!\b";
     }
 
     /* 
