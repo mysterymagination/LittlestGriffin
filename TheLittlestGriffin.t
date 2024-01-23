@@ -95,6 +95,63 @@ DefineTAction(Chew);
      }
    ;
 
+DefineTAction(Lick);
+
+   VerbRule(Lick)
+     ('lick') singleDobj
+     : LickAction
+     verbPhrase = 'lick/licking (what)'
+   ;
+
+   modify Thing
+     dobjFor(Lick)
+     {
+       verify() 
+       {
+         illogical('You probably shouldn\'t lick 
+                   {that dobj/him/her}. ');
+       }
+     }
+   ;
+
+DefineTAction(Sniff);
+
+   VerbRule(Sniff)
+     ('sniff' | 'snuffle' | 'smell') singleDobj
+     : SniffAction
+     verbPhrase = 'sniff/sniffing (what)'
+   ;
+
+   modify Thing
+     dobjFor(Sniff)
+     {
+       verify() 
+       {
+         illogical('You probably shouldn\'t sniff 
+                   {that dobj/him/her}. ');
+       }
+     }
+   ;
+
+DefineTAction(PlayWith);
+
+   VerbRule(PlayWith)
+     ('play' | 'frolic') 'with' singleDobj
+     : PlayWithAction
+     verbPhrase = 'play/playing with (what)'
+   ;
+
+   modify Thing
+     dobjFor(PlayWith)
+     {
+       verify() 
+       {
+         illogical('Defying all logic, 
+                   {that dobj/he/she} doesn\'t seem to want to play just now. ');
+       }
+     }
+   ;
+
 DefineTIAction(UseOn);
 
    VerbRule(UseOn)
@@ -112,6 +169,15 @@ DefineTIAction(UseOn);
                    {dobj/him/her}. ');
        }
      }
+   ;
+
+DefineIAction(Help)
+     execAction() { mainReport('Available commands are talk/speak to something, ask/tell something about something else, show something to something else, chew something, sniff something, lick something, play with something'); }
+   ;
+VerbRule(Help)
+     'help'
+     : HelpAction
+     verbPhrase = 'help/helping'
    ;
 
 /* Topics of discussion */
@@ -172,6 +238,10 @@ aery: Room 'Aery'
         if (griffinDogHarness.isIn(scoutGriffin))
             ", dog-style quadruped harness rigged up and ready to go 'round his middle',";
     }
+    defaultGreetingResponse(otherActor)
+    {
+        "The scout griffin bobs his head amiably, <q>Hello little fellow. What can I do for you?</q> Perhaps you should ask or tell him directly about whatever's on your mind?";
+    }
 ;
 
 /* attempt to match any ask/tell involving mentioning a cublet and any indicators that you have smelled it outside or on the ground level or in the bushes... */
@@ -186,6 +256,7 @@ aery: Room 'Aery'
                 "Scout rushes to a window and looks out.  <q>Are you certain?  I don't see anything... I shall investigate!</q>  He zooms out the window and down to the ground, and commences snuffling through the bushes.  After a few minutes he returns with a tiny cublet held carefully in his beak.  There are squawks of rejoice from the others as he deposits the little one safely with the others.  <q>Thank you so much mister dog!  That's some sniffer you've got; we'd been searching all day in vain.</q>  He tilts his head thoughtfully.  <q>My scouting work could benefit greatly from your wiggly snoot, and I bet your tail wagging would give us some sort of aerodynamic boost!  If only there were a way for us to fly together...</q>";
                 griffinDog.snifferDemoed = true;
                 griffinDog.endDaemon();
+                addToScore(5, 'cublet rescued');
             }
             else 
             {
@@ -235,6 +306,10 @@ aery: Room 'Aery'
     patches without feather coverage.  His name is Dashwick and he doesn't seem very friendly.  Even so, you long to lick his beak -- it looks salty! "
     isProperName = true
     isHim = true
+    defaultGreetingResponse(otherActor)
+    {
+        "The warrior griffin does not deign to respond, instead fixing you with a withering gaze. Perhaps you should ask or tell him directly about whatever's on your mind?";
+    }
 ;
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
@@ -282,16 +357,28 @@ aery: Room 'Aery'
     isHer = true
     defaultGreetingResponse(otherActor)
     {
-        "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or personal space, so you wag harder and play bow in invitation.";
+        "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or personal space, so you wag harder and play bow in invitation. Perhaps you should ask or tell her directly about whatever's on your mind?";
     }
 ;   
 
-+ cubletGriffins: Actor 'cub/cublet/baby/pup/puppy' 'Cublets'
++ cubletGriffins: Actor 'cubs/cublets/babies/pups/puppies' 'Cublets'
     "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval."
     isProperName = false
     isHer = true
     isHim = true
     isPlural = true
+    defaultGreetingResponse(otherActor)
+    {
+        "The cublets are much too busy playing and creating havoc to listen. You nod in fuzzily sage approval of their grand works.";
+    }
+    dobjFor(PlayWith)
+    {
+        verify(){}
+        action() 
+        {
+            "You and the cublets bounce around and chase each other until you all tire and collapse in a fuzzy/feathery heap, transitioning to a good game of bitey-face since it doesn't require movement.";
+        }
+    }
 ; 
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
@@ -343,6 +430,10 @@ aery: Room 'Aery'
     "Pacing back and forth, the kindly griffin Warkmana seems too distracted to pay you any mind at the moment.  You can smell that if she had long floppy ears like yours, they would be scrunched up close together with worry. "
     isProperName = true
     isHer = true
+    defaultGreetingResponse(otherActor)
+    {
+        "The matronly griffin is too distracted for chitchat. Perhaps you should ask or tell her directly about whatever's on your mind?";
+    }
 ;
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
@@ -390,6 +481,10 @@ aery: Room 'Aery'
     isHer = true
     /* Indicates whether or not Mallory has been functionally disturbed by conversation with the player */
     poked = nil
+    defaultGreetingResponse(otherActor)
+    {
+        "The librarian griffin eyes you owlishly over the top of thick spectacles. <q>Is there something I can do for you?</q>. Without waiting for a reply, she promptly returns to her reading. Perhaps you should ask or tell her directly about whatever's on your mind?";
+    }
 ;
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground'
@@ -436,6 +531,7 @@ aery: Room 'Aery'
         if(griffinDog.snifferDemoed)
         {
             mainReport(griffinDog.victoryBlurb);
+            addToScore(5, 'flight of The Griffin!');
             finishGameMsg(ftVictory, [finishOptionCredits]);
         }
         else
@@ -518,6 +614,11 @@ aery: Room 'Aery'
                 case 6: stickMessage += 'Smelly green and yellow sparks reminiscent of bile ooze from stick, prompting you to pull back quickly.  A fell ' + generateRandomBadNoun() + ' squirms into your reality from someplace foul, and you have little choice but to ' + generateRandomVerb() + ' it.'; break;
             }
             mainReport(stickMessage);
+            griffinDog.chewCount++;
+            if (griffinDog.chewCount == 3)
+            {
+                addToScore(5, 'tenacious chewer');
+            }
         }
      }
      generateRandomGoodNoun()
@@ -655,6 +756,8 @@ griffinDogHarness: Thing 'griffin dog harness/dog harness/harness' 'harness'
             /* remove sturdy rope and stand since they were combined into the harness */
             sturdyRope.moveInto(nil);
             quadrupedStand.moveInto(nil);
+           
+            addToScore(5, 'puppy flying harness constructed');
         }
     }
     bHarnessMade = nil
@@ -721,6 +824,11 @@ griffinDog: Actor
     * Mr. Griffin needs to show off his sniffing skillz to impress the griffins
     */
     snifferDemoed = nil
+    
+    /*
+     * Tracks number of times the stick was chewed upon
+     */
+    chewCount = 0
 
     /*
      * Message to be displayed when the user has hit the victory condition
@@ -737,6 +845,15 @@ griffinDog: Actor
  */
 gameMain: GameMainDef
     initialPlayerChar = griffinDog
+    scoreRankTable =
+        [
+         [ 0, 'a silly puppy'],
+         [ 5, 'a fuzzy scholar'],
+         [ 10, 'bestdog'],
+         [ 15, 'mightymutt'],   
+         [ 20, 'Griffin, Prince of All Dogs!']
+        ]
+    maxScore = 20
 
     /* 
      *   Show our introductory message.  This is displayed just before the
