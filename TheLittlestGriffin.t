@@ -172,7 +172,8 @@ DefineTIAction(UseOn);
    ;
 
 DefineIAction(Help)
-     execAction() { mainReport('Available commands are talk/speak to something, ask/tell something about something else, show something to something else, chew something, sniff something, lick something, play with something'); }
+     execAction() { mainReport('Available commands are talk/speak to something, ask/tell something about something else, show something to something else, chew something, sniff something, lick something, play with something,
+         open something, take something, use something on something else'); }
    ;
 VerbRule(Help)
      'help'
@@ -687,8 +688,8 @@ aery: Room 'Aery'
 /*
  *   Put the inexplicable quadruped stand in the crate. 
  */
-++ quadrupedStand: Thing 'inexplicable quadruped stand/platform/stand' 'stand'
-    "No one remembers who ordered this strange static mesh of hard leather apparently intended to secure a four-footed creature to a surface.  Handy, though! "
+++ quadrupedStand: Thing 'inexplicable quadruped stand/platform/stand/saddle' 'Quadruped Support Platform'
+    "No one remembers who ordered this strange saddle-like static mesh of hard leather apparently intended to secure a four-footed creature atop another creature.  Handy, though! "
 
     /* 
      *   we want to provide a special message when we use the stand on the rope, so

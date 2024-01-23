@@ -62,9 +62,9 @@ auto-script:quit sequences:S:0:<nocase>[<]line[>]<space>*q(uit)?<space>*
 auto-script:quit sequences:S:1:<nocase>[<]line[>]<space>*y.*
 SearchToolbar:rebarIndex:I:2
 search:wrap:I:1
-auto-script:next-id:I:47
+auto-script:next-id:I:48
 SearchToolbar:rebarWidth:I:281
-search:text:S:0:dobjfor
+search:text:S:0:stand
 search:text:S:1:
 docking config::S:0:CL
 docking config::S:1:W0,219,270,2,531,302,681,D,L,project win
@@ -131,14 +131,16 @@ locals win:sep xpos 1:I:142
 search:whole word:I:0
 DebugToolbar:rebarNewLine:I:1
 build:debug_image_file:S:0:debug\TheLittlestGriffin.t3
-search dlg:old searches:S:0:dobjfor
-search dlg:old searches:S:1:chew
-search dlg:old searches:S:2:snifferdem
-search dlg:old searches:S:3:gamemain
-search dlg:old searches:S:4:addtosco
-search dlg:old searches:S:5:victoryBlurb
-search dlg:old searches:S:6:welcome
-search dlg:old searches:S:7:
+search dlg:old searches:S:0:stand
+search dlg:old searches:S:1:stabd
+search dlg:old searches:S:2:dobjfor
+search dlg:old searches:S:3:chew
+search dlg:old searches:S:4:snifferdem
+search dlg:old searches:S:5:gamemain
+search dlg:old searches:S:6:addtosco
+search dlg:old searches:S:7:victoryBlurb
+search dlg:old searches:S:8:welcome
+search dlg:old searches:S:9:
 src win selrange:TheLittlestGriffin.t:S:0:0,0
 src win selrange:TheLittlestGriffin.t:S:1:13399,13399
 find dialog:pos:R:1498,593,1942,846
@@ -150,6 +152,8 @@ search dlg:old search opts:S:4:
 search dlg:old search opts:S:5:
 search dlg:old search opts:S:6:
 search dlg:old search opts:S:7:
+search dlg:old search opts:S:8:
+search dlg:old search opts:S:9:
 search:regex:I:0
 src win selrange:%tads%lib\adv3\actor.t:S:0:0,0
 src win selrange:%tads%lib\adv3\actor.t:S:1:78957,78957
