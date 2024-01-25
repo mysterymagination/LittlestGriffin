@@ -50,7 +50,7 @@ versionInfo: GameID
     byline = 'by Jeff Creswell'
     htmlByline = 'by <a href="mailto:creswel2@gmail.com">
                   Jeff Creswell</a>'
-    version = '1'
+    version = '1.1.2'
     authorEmail = 'Jeff Creswell <creswel2@gmail.com>'
     desc = 'A one room micro adventure starring Mr. Griffin the dog and actual griffins.'
     htmlDesc = 'A one room micro adventure starring Mr. Griffin the dog and actual griffins.'
@@ -114,6 +114,7 @@ DefineTAction(Lick);
      }
    ;
 
+/*
 DefineTAction(Sniff);
 
    VerbRule(Sniff)
@@ -133,6 +134,8 @@ DefineTAction(Sniff);
      }
    ;
 
+*/
+    
 DefineTAction(PlayWith);
 
    VerbRule(PlayWith)
@@ -215,6 +218,25 @@ aery: Room 'Aery'
     isProperName = true
     isHim = true
 
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Scout smiles down merrily as you lick his forepaws. <q>Aw, I love you too little dog!</q>";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('Scout smells of wild places and things, of adventure and merrymaking. Most interestingly, he smells of the sky!');
+        }
+    }
+    
     getIdleMannerismDescription
     {
         if(griffinDog.snifferDemoed)
@@ -315,6 +337,25 @@ aery: Room 'Aery'
     {
         "The warrior griffin does not deign to respond, instead fixing you with a withering gaze. Perhaps you should ask or tell him directly about whatever's on your mind?";
     }
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Dashwick fixes you with a cold stare. <q>I do not want kisses. Please lavish your affections on someone else.</q>";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('Dashwick takes a few steps away and chirps, <q>Is there something I can do for you?!</q> By way of answer, you move your questing snout back up to him and resume snuffling.');
+        }
+    }
+      
 ;
 
 ++AskTellTopic '.*cublet.*outside|.*outside.*cublet|.*bush.*cublet|.*cublet.*bush|.*ground.*cublet|.*cublet.*ground|.*smell.*window|.*smell.*outside|.*smell.*bush.*|.*cublet.*window|.*window.*cublet'
@@ -367,6 +408,24 @@ aery: Room 'Aery'
     defaultGreetingResponse(otherActor)
     {
         "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or personal space, so you wag harder and play bow in invitation. Perhaps you should ask or tell her directly about whatever's on your mind?";
+    }
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Fizzelump blushes and hides her beak in her plumage.";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('<q>Whatcha smell, Mr. Ol\' Dog? I\'ve been working with some volatile compounds recently, so it might be better to sniff with the approved wafting motion or under a fume hood.</q>');
+        }
     }
 ;   
 
@@ -439,6 +498,24 @@ aery: Room 'Aery'
             "You and the cublets bounce around and chase each other until you all tire and collapse in a fuzzy/feathery heap, transitioning to a good game of bitey-face since it doesn't require movement.";
         }
     }
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "The cublets laugh and squirm joyfully as you groom them.";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('The cublets sniff you right back, and you form a fuzzy/feathery Ouroboros for a time. Infinite smell!');
+        }
+    }
 ; 
 
 + matronGriffin: Actor 'kindly bird/lion/griffin/matron/mother/warkmana' 'Warkmana'
@@ -448,6 +525,24 @@ aery: Room 'Aery'
     defaultGreetingResponse(otherActor)
     {
         "The matronly griffin is too distracted for chitchat. Perhaps you should ask or tell her directly about whatever's on your mind?";
+    }
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "A wistful smile spreads over Warkmana's beak and a little tear forms in her eye. <q>My lost little one loves kisses. Oh I hope we find him soon!</q>";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('Warkmana smells like the cublets plus exhaustion. You reflect that perhaps being neutered isn\'t so bad after all.');
+        }
     }
 ;
 
@@ -503,6 +598,24 @@ aery: Room 'Aery'
     defaultGreetingResponse(otherActor)
     {
         "The librarian griffin eyes you owlishly over the top of thick spectacles. <q>Is there something I can do for you?</q>. Without waiting for a reply, she promptly returns to her reading. Perhaps you should ask or tell her directly about whatever's on your mind?";
+    }
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Mallory hums as you rain kisses upon her. <q>More to the left, please.</q>";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('Mallory peers at your sniffer with interest. <q>My word, where does all that scent data go? Do you catalogue it all in your noggin? I wonder if we could export it somehow...</q> Not much caring for where this is headed, you bork and bound away.');
+        }
     }
 ;
 
@@ -613,10 +726,48 @@ aery: Room 'Aery'
             griffinDogHarness.makeDogHarness();
         }
     }
+    
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Tastes like connections!";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('Smells like an old barn mixed with properly dogged industry.');
+        }
+    }
 ;
 
 + spellBook: Thing 'spells/book/spell book/grimoire' 'spell book'
     "Some sort of book, with fanciful trim and similar frills.  Smells of Fizzelump, which is to say the scent of enthusiasm pleasantly underscored by cozy mustiness.  Filled with squiggles."
+    
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "The book tastes mildly of cow, but not quite enough to peak your interest. Plus Fizzelump is watching.";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('The book smells like a cozy library, one of your very favorite nap spots! Just thinking about the last time you curled up at the paws of someone reading has you...zzzz');
+        }
+    }
 ;
 
 + eldritchStick: Thing 'stick/eldritch stick/staff' 'mesmerizing stick'
@@ -692,11 +843,30 @@ aery: Room 'Aery'
              default: return 'Love Unconditionally and Completely upon'; break;
          }
      }
+    
+    dobjFor(Lick)
+    {
+        verify(){}
+        action() 
+        {
+            "Like all sticks, this one has a unique and complex flavor. It tastes of sunsets and mown grasses, of hay and horses and a crackling hearth. Watta good stick!";
+        }
+    }
+    
+    dobjFor(Smell)
+    {
+        verify(){}
+        action() 
+        {
+            inherited();
+            mainReport('The stick smells like Fizzelump for the most part, though there\'s more than a dash of eldritch planes of existence on it. Every dog knows the smell of ghosts and gods, and this stick has it in spades!');
+        }
+    }
 
 ;
 
 /*
- *   The stove is a Fixture, since we don't want the player to be able to
+ *   The crate is a Fixture, since we don't want the player to be able to
  *   move it.  It's also an OpenableContainer, because we want the player
  *   to be able to open and close it and put things in it.
  *   
@@ -873,10 +1043,10 @@ gameMain: GameMainDef
     initialPlayerChar = griffinDog
     scoreRankTable =
         [
-         [ 0, 'a silly puppy'],
-         [ 5, 'a fuzzy scholar'],
-         [ 10, 'bestdog'],
-         [ 15, 'mightymutt'],   
+         [ 0, 'A Silly Puppy, Indeed'],
+         [ 5, 'A Fuzzy Scholar!'],
+         [ 10, 'Bestdog!'],
+         [ 15, 'Mighty Ol\' Mutt!'],   
          [ 20, 'Griffin, Prince of All Dogs!']
         ]
     maxScore = 20

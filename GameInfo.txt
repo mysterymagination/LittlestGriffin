@@ -5,8 +5,8 @@ HtmlByline: by <a href="mailto:creswel2@gmail.com"> Jeff Creswell</a>
 AuthorEmail: Jeff Creswell <creswel2@gmail.com>
 Desc: A one room micro adventure starring Mr. Griffin the dog and actual griffins.
 HtmlDesc: A one room micro adventure starring Mr. Griffin the dog and actual griffins.
-Version: 1
-ReleaseDate: 2024-01-23
+Version: 1.1.2
+ReleaseDate: 2024-01-24
 Language: en-US
 LicenseType: Freeware
 CopyingRules: Nominal cost only; compilations allowed
