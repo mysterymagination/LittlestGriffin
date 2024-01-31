@@ -113,28 +113,6 @@ DefineTAction(Lick);
        }
      }
    ;
-
-/*
-DefineTAction(Sniff);
-
-   VerbRule(Sniff)
-     ('sniff' | 'snuffle' | 'smell') singleDobj
-     : SniffAction
-     verbPhrase = 'sniff/sniffing (what)'
-   ;
-
-   modify Thing
-     dobjFor(Sniff)
-     {
-       verify() 
-       {
-         illogical('You probably shouldn\'t sniff 
-                   {that dobj/him/her}. ');
-       }
-     }
-   ;
-
-*/
     
 DefineTAction(PlayWith);
 
@@ -182,6 +160,18 @@ VerbRule(Help)
      'help'
      : HelpAction
      verbPhrase = 'help/helping'
+   ;
+
+DefineIAction(Bark)
+     execAction() 
+     {
+        "You bork and howl celebration for the sheer joy of raising your voice in the song of your people!";
+     }
+   ;
+VerbRule(Bark)
+     ('bark' | 'bork' | 'howl' | 'yap' | 'yip')
+     : BarkAction
+     verbPhrase = 'bark/barking'
    ;
 
 /* Topics of discussion */
@@ -263,7 +253,16 @@ aery: Room 'Aery'
     }
     defaultGreetingResponse(otherActor)
     {
-        "The scout griffin bobs his head amiably, <q>Hello little fellow. What can I do for you?</q> Perhaps you should ask or tell him directly about whatever's on your mind?";
+        if (griffinDog.snifferDemoed)
+        {
+            "The scout griffin bobs his head amiably, <q>Hello little fellow. What can I do for you?</q> Perhaps you should ask or tell him directly about whatever's on your mind?";
+        }
+        else
+        {
+            "The scout griffin bobs his head amiably, though he seems distressed. <q>Hello little fellow. I'm afraid we're all a bit preoccupied at the moment searching for one of our lost little 
+            cublet. We've got a bunch running \'round here I know, but one\'s unaccounted for.</q> 
+            Perhaps you could help point them in the right direction?";
+        }
     }
 ;
 
@@ -335,7 +334,15 @@ aery: Room 'Aery'
     isHim = true
     defaultGreetingResponse(otherActor)
     {
-        "The warrior griffin does not deign to respond, instead fixing you with a withering gaze. Perhaps you should ask or tell him directly about whatever's on your mind?";
+        if (griffinDog.snifferDemoed)
+        {
+            "The warrior bows respectfully, but then turns his attention away to a complicated paper full of magic squiggles. Perhaps you should ask or tell him directly about whatever's on your mind?";
+        }
+        else 
+        {
+            "The warrior griffin does not deign to respond, instead fixing you with a withering gaze. <q>Away, you. We're busy looking for our lost cublet.</q> Perhaps he'd be friendlier
+            if you managed to point them towards their quarry?";
+        }
     }
     dobjFor(Lick)
     {
@@ -407,7 +414,17 @@ aery: Room 'Aery'
     isHer = true
     defaultGreetingResponse(otherActor)
     {
-        "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or personal space, so you wag harder and play bow in invitation. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        if (griffinDog.snifferDemoed)
+        {
+            "The wizardly griffin's expressive eyes light up at your returned attention and she crows, <q>Why hello Mr. Dog! Welcome to our humble home.</q> 
+            Apparently having exhausted her store of smalltalk, Fizzelump stares at you awkwardly. Your friendly joy doesn't allow for the concept of awkwardness, or 
+            personal space, so you wag harder and play bow in invitation. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        }
+        else
+        {
+            "The wizardly griffin tips her floppy hat to you, but her attention roams about the room. <q>We'll talk later, fuzzy buddy. Right now we're quite tied up searching for our missing cublet.</q> 
+            Maybe you could help point them in the right direction?";
+        }
     }
     dobjFor(Lick)
     {
@@ -524,7 +541,14 @@ aery: Room 'Aery'
     isHer = true
     defaultGreetingResponse(otherActor)
     {
-        "The matronly griffin is too distracted for chitchat. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        if (griffinDog.snifferDemoed)
+        {
+            "The matronly griffin is too distracted chasing after her cublet charges to engage in chitchat. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        }
+        else
+        {
+            "<q>No time, no time to chat! We must find the lost cublet immediately!</q> Perhaps you could help point them in the right direction?";
+        }
     }
     dobjFor(Lick)
     {
@@ -597,7 +621,16 @@ aery: Room 'Aery'
     poked = nil
     defaultGreetingResponse(otherActor)
     {
-        "The librarian griffin eyes you owlishly over the top of thick spectacles. <q>Is there something I can do for you?</q>. Without waiting for a reply, she promptly returns to her reading. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        if (griffinDog.snifferDemoed)
+        {
+            "The librarian griffin eyes you owlishly over the top of thick spectacles. <q>Is there something I can do for you?</q>. 
+            Without waiting for a reply, she promptly returns to her reading. Perhaps you should ask or tell her directly about whatever's on your mind?";
+        }
+        else
+        {
+            "The librarian griffin pushes a logbook towards you with her mighty clawed paw. <q>Please sign in with the current time and you'll be notified when I'm available to speak.
+            With our cublet missing I don't anticipate that will be anytime soon, sad to say.</q> Perhaps you could expedite your appointment if you point them in the right direction?";
+        }
     }
     dobjFor(Lick)
     {
@@ -986,6 +1019,11 @@ griffinDog: Actor
         {
             smellyDaemonId = new Daemon(self, &processSmellyDaemon, 1);
         }
+    }
+    
+    defaultGreetingResponse(otherActor)
+    {
+        "You bork and howl celebration for the sheer joy of raising your voice in the song of your people!";
     }
 
     processSmellyDaemon
