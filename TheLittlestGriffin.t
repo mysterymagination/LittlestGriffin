@@ -317,7 +317,17 @@ aery: Room 'Aery'
 ;
 
 ++GiveShowTopic @griffinDogHarness
-    "<q>What a marvelous contraption!  I don't quite see what it's good for, but well done you for making it.  Maybe Mallory would be intrigued?</q>";
+    topicResponse
+    {
+        if(griffinDog.snifferDemoed)
+        {
+            "<q>What a marvelous contraption!  I don't quite see what it's good for, but well done you for making it.  Maybe Mallory would be intrigued?</q>";
+        }
+        else
+        {
+            "<q>That's pretty slick, but I'm not sure what to do with it. Maybe once we've found our lost cublet you could ask Mallory?</q>";
+        }
+    }
 ;
 
 /*
@@ -498,7 +508,8 @@ aery: Room 'Aery'
 ;
 
 + cubletGriffins: Actor 'cubs/cublets/babies/pups/puppies' 'Cublets'
-    "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval."
+    "Several cute griffin cublets amble about the aery, snuffling, questing, playing, and generally being frolicsome. You give one a sniff and it flaps up to land on your head, intending to ride you around for a bit; it's little claws give lovely scritches, and you rumble your approval. Notably, the rolly-polly cublets are stealthier than one would expect
+    -- they can hide with such wiggeldy aptitude that they seem to vanish from one moment to the next. You can't count on them being at given location long after you've sensed them there!"
     isProperName = false
     isHer = true
     isHim = true
@@ -585,7 +596,31 @@ aery: Room 'Aery'
 ;
 
 ++AskTellTopic '.*cublet.*'
-    "<q>Oh, how could I have let one go missing?</q> She frets, too distressed to discuss her brood in general."
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "<q>Oh, how could I have let one go missing? They're just so good at slipping away and hiding; there one moment and gone the next!</q> She frets, too distressed to discuss her brood in general.";
+        }
+        else
+        {
+            "<q>They certainly are a handful, aren't they?</q> She sighs in mild exasperation, but a smile spreads broadly across her beak.";
+        }
+    }
+;
+
+++GiveShowTopic '.*cublet.*'
+    topicResponse()
+    {
+        if(!griffinDog.snifferDemoed)
+        {
+            "<q>Yes, I've still got an eye on the cublets in the aery for sure. We need to find the missing one, though!</q>";
+        }
+        else
+        {
+            "<q>Yes, thank you! You've given me back my baby!</q> She bends down and plants many smooches for pooches upon your fuzzy noggin.";
+        }
+    }
 ;
 
 ++AskTellTopic @salutationTopic
@@ -666,6 +701,36 @@ aery: Room 'Aery'
     }
 ;
 
+++GiveShowTopic @spellBook
+    topicResponse
+    {
+        if (spellBook.isIn(griffinDog))
+        {
+            spellBook.moveInto(librarianGriffin);
+            addToScore(5, 'library dog!');
+            "<q>Ooh, that's a rare book! I'll make sure to return it to its rightful place in the stacks.</q>";
+        }
+        else
+        {
+            "<q>Hmm? What book?</q>";
+        }
+    }
+;
+
+++AskTellTopic @spellBook
+    topicResponse
+    {
+        if (!spellBook.isIn(librarianGriffin))
+        {
+            "<q>Ooh, that's a rare book! Please give it back to me when you're finished with it; I'll make sure it gets back home safe.</q>";
+        }
+        else
+        {
+            "<q>I've already shelved that title, fuzzy one. You can check it out again in one week.</q>";
+        }
+    }
+;
+
 ++AskTellTopic '.*cublet.*'
     "<q>We all love the cublets, of course, but they do manage to be forever sticky somehow, which is suboptimal for the books!</q> She pulls her book to her breast, protectively."
 ;
@@ -694,7 +759,8 @@ aery: Room 'Aery'
     }
 ;
 
-++GiveShowTopic @griffinDogHarness
+
+++AskTellTopic @griffinDogHarness
     topicResponse
     {
         if(griffinDog.snifferDemoed)
@@ -707,7 +773,25 @@ aery: Room 'Aery'
         }
         else
         {
-            "Mallory seems totally lost in her book.  Though she puts forth an aloof facade, you sense she is deeply troubled by something.";
+            mainReport('Mallory seems totally lost in her book. Though she puts forth an aloof facade, you sense she is deeply troubled by something. <q>Can\'t focus...</q> She mutters, <q>Must find the missing cublet.</q>');
+        }
+    }
+;
+    
+++GiveShowTopic @griffinDogHarness
+    topicResponse
+    {
+         if(griffinDog.snifferDemoed)
+        {
+            mainReport(griffinDog.victoryBlurb);
+            addToScore(5, 'flight of The Griffin!');
+            mainReport('\n\n');
+            libScore.showFullScore();
+            finishGameMsg(ftVictory, [finishOptionCredits]);
+        }
+        else
+        {
+            mainReport('Mallory seems totally lost in her book. Though she puts forth an aloof facade, you sense she is deeply troubled by something. <q>Can\'t focus...</q> She mutters, <q>Must find the missing cublet.</q>');
         }
     }
 ;
@@ -969,6 +1053,7 @@ aery: Room 'Aery'
 griffinDogHarness: Thing 'griffin dog harness/dog harness/harness/platform/saddle' 'Griffin-Dog Harness'
     "The griffin-dog harness provides a lovely interface allowing a dog to
     safely ride a griffin in flight."
+    bHarnessMade = nil
     makeDogHarness()
     {
         if(!self.bHarnessMade)
@@ -989,7 +1074,14 @@ griffinDogHarness: Thing 'griffin dog harness/dog harness/harness/platform/saddl
             addToScore(5, 'puppy flying harness constructed');
         }
     }
-    bHarnessMade = nil
+    dobjFor(UseOn)
+    {
+        verify(){}
+        action()
+        {
+            "You nose about the harness for a bit, but neither jaws nor paws seem quite up to the task of making use of it. You'll need help -- try asking about it or showing it to others rather than using it directly.";
+        }
+    }
 ;
 
 /*
@@ -1084,10 +1176,11 @@ gameMain: GameMainDef
          [ 0, 'A Silly Puppy, Indeed'],
          [ 5, 'A Fuzzy Scholar!'],
          [ 10, 'Bestdog!'],
-         [ 15, 'Mighty Ol\' Mutt!'],   
-         [ 20, 'Griffin, Prince of All Dogs!']
+         [ 15, 'Mighty Ol\' Mutt!'],
+         [ 20, 'Watta Woof!'],
+         [ 25, 'Griffin, Prince of All Dogs!']
         ]
-    maxScore = 20
+    maxScore = 25
 
 
     /* 
